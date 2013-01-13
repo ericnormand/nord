@@ -178,11 +178,10 @@
    [:a.name {:href "#"}]])
 
 (defn neighborhood-template []
-  [:div.neighborhood
-   [:h3
-    [:span.name]
-    [:span.number]]
-   [:ul.parks]])
+  [:h3
+   [:span.name]
+   [:span.number]]
+  [:ul.parks])
 
 (defn neighborhood-list [parks]
   [:div.neigh-list
