@@ -188,6 +188,12 @@
      [:span.number]]]
    [:div.accordionBody.collapse
     [:div.accordion-inner
+     [:form.form-search
+      [:div.input-append
+       [:input.input-medium.search-query.neigh-filter
+        {:type "text"}]
+       [:button.btn
+        "Clear"]]]
      [:ul.parks]]]])
 
 (defn neighborhood-list [parks]
