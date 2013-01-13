@@ -46,6 +46,9 @@
            } else {
              el.addClass('active');
              $('header').addClass('selector-list');
+             $('#map-view').click(function(){
+               $('img.sel').trigger('click');
+             });
            }
          });
 
@@ -57,6 +60,9 @@
            } else {
              el.addClass('active');
              $('header').addClass('neigh-list');
+             $('#map-view').click(function(){
+               $('img.list').trigger('click');
+             });
              makeNeighborhoodList();
            }
          });
@@ -103,7 +109,6 @@
                                'streetViewControl': false,
                                'zoom' : 12
            }).bind('init', function(evt, map) {
-            .bind('init', function(evt, map) {
 	        $('#map-view').gmap('getCurrentPosition', function(position, status) {
 		    if ( status === 'OK' ) {
 		        var clientPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
