@@ -87,7 +87,8 @@
     [:header
      [:img.sel {:src "/img/arrows.png"}]
      [:div.logo]
-     [:img.list {:src "/img/list_text.png"}]]
+     [:img.list {:src "/img/list_text.png"}]
+     [:img.map {:src "/img/map_text.png"}]]
     
     [:article
      [:div.middle
@@ -168,6 +169,11 @@
 
   [:div.selector-list
    [:ul.nav.nav-list
+    [:li.filter
+     [:a {:href "#"
+          :data-str "all"}
+      [:div]
+      [:span "All"]]]
     (for [s features]
       [:li.filter
        [:a {:href "#"

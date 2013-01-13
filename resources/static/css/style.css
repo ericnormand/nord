@@ -66,6 +66,8 @@ header.selector-list .list {
   display: none;
 }
 
+
+
 header.selector-list img.sel {
   position: absolute;
   left: 40%;
@@ -153,6 +155,15 @@ img.list {
   width: 25px;
 }
 
+img.map {
+  position: absolute;
+  right: 14px;
+  top: 50%;
+  margin: -5px 0 0 0;
+  width: 25px;
+  display: none;
+}
+
 div.neigh-list {
   height: 100%;
   z-index: 2;
@@ -194,6 +205,12 @@ header.neigh-list .logo{
 header.neigh-list .sel {
   opacity: .5;
 }
+
+header.neigh-list .map {
+    display: block;
+}
+
+
 
 header.neigh-list .list {
   display: none;

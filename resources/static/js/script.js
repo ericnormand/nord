@@ -71,6 +71,22 @@
            }
          });
 
+    $('img.map').click(function() {
+        var el = $('div.neigh-list');
+        if(el.hasClass('active')) {
+             el.removeClass('active');
+             $('header').removeClass('neigh-list');
+           } else {
+             el.addClass('active');
+             $('header').addClass('neigh-list');
+             $('#map-view').click(function(){
+               $('#map-view').unbind('click');
+               $('img.list').trigger('click');
+             });
+             makeNeighborhoodList();
+           }
+         });
+
          var youarehere = {
            'url' : '/img/you_are_here.png'
          };
