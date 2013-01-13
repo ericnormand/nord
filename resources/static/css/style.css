@@ -54,9 +54,11 @@ div.selector-list {
     position: absolute;
     top: 0;
     left: -100%;
-    background: black;
-    color: white;
-    width: 75%;
+    background: #efefef;
+    color: black;
+    min-width: 40%;
+    width: auto;
+    padding: 0 10px;
 }
 
 div.selector-list.active {
@@ -88,9 +90,11 @@ div.neigh-list {
     position: absolute;
     top: 0;
     right: -100%;
-    background: black;
+    background: #efefef;
     color: white;
-    width: 75%;
+    min-width: 40%;
+    width: auto;
+    padding: 0 10px;
     bottom: 0;
     overflow: auto;
 }
