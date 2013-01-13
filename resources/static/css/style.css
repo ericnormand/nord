@@ -104,14 +104,16 @@ div.neigh-list.active {
     right:0;
 }
 
-header.neigh-list .logo,
+header.neigh-list .logo{
+  /*display: none;*/
+}
 header.neigh-list .sel {
-    display: none
+  opacity: .5;
 }
 
 header.neigh-list .list {
-    right: auto;
-    left: 10px;
+  display: none;
+    /*right: 50%;*/
 }
 
 div.park-view {
