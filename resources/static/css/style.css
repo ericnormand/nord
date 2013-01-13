@@ -61,10 +61,10 @@ body > header {
   }
 }
 
-header.selector-list .logo,
+/* header.selector-list .logo,
 header.selector-list .list {
   display: none;
-}
+} */
 
 
 
@@ -77,6 +77,13 @@ header.selector-list img.sel {
   -moz-transform:rotate(180deg); /* Firefox */
   -webkit-transform:rotate(180deg); /* Safari and Chrome */
   -o-transform:rotate(180deg); /* Opera */
+  margin: -20px 20px 20px 18px;
+  background: #fff;
+  padding: 10px;
+  z-index: 15;
+  opacity:1;
+  border:1px solid #ccc;
+  border-radius:3px
 }
 
 @media all and (max-width: 480px){
@@ -122,15 +129,35 @@ div.selector-list {
   top: 0;
   bottom: 0;
   left: -100%;
-  background: #efefef;
-  color: black;
+  background: #555;
+  color: #fafafa;
   min-width: 40%;
   width: auto;
-  padding: 0 10px;
+  padding: 10px;
+  overflow-y: auto;
 }
 
 div.selector-list.active {
   left: 0;
+}
+
+div.selector-list.active ul li a {
+    color: #fafafa;
+    text-shadow: 0px -2px 0px rgba(0, 0, 0, .7);
+    text-transform: uppercase;
+}
+
+div.selector-list.active ul li a:hover {
+    background:#333;
+       
+}
+
+li.filter {min-height:20px}
+
+
+div.selector-list.active ul li img {
+    max-width:25px;
+    padding: 10px 20px 10px 0;
 }
 
 img.sel { 
@@ -186,18 +213,19 @@ div.neigh-list.active {
 
 @media all and (max-width: 480px){
   div.neigh-list.active {
-    width: 75%;
+    width: 100%;
     padding: 0 10px;
+    top:50px;
+    text-transform:uppercase;
+    font-size:20px;
+
+
   }
   div.selector-list {
     width: 75%;
   }
   header.neigh-list .logo{
-    width: 44px;
-    height: 44px;
     /*background-size: 80%;*/
-    margin: -25px 0 0 -75px;
-    background-image: url('../img/mark.png');
   }
 }
 header.neigh-list .logo{
@@ -210,6 +238,29 @@ header.neigh-list .map {
     display: block;
 }
 
+.accordion-heading {
+    padding:10px;
+    border-bottom:1px solid #a
+    
+}
+.accordion-heading a {
+     color:#333;
+     text-transform: uppercase;
+     font-weight: bold;
+     letter-spacing: .1em;
+     font-size: 20px;
+}
+a:hover {text-decoration:none;}
+
+li.park {
+  list-style:none;
+  padding: 0 0 2px;
+  font-size:20px
+}
+li.park a {
+     color:#666;
+     text-transform:initial;
+}
 
 
 header.neigh-list .list {
@@ -218,7 +269,7 @@ header.neigh-list .list {
 }
 
 ul.parks > li.park {
-  margin: 10px 0px;
+  margin: 17px 0px;
 }
 
 div.park-view {
@@ -279,6 +330,8 @@ div.park-view div.body .address {
   color: black;
   font-size: 20px;
 
+  width: 80%;
+  display: block;
 }
 
 div.park-view div.body .city {
