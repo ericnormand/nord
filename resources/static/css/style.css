@@ -12,12 +12,19 @@ article { height: 100% }
 
 div.middle, div.inner {height: 100%}
 
+
 #map-view { 
     position: absolute;
     top: 60px;
     left: 0;
     right: 0;
     bottom: 0;
+}
+
+@media all and (max-width: 480px){
+  #map-view { 
+    top: 50px;
+  }
 }
 
 body > header {
@@ -27,6 +34,12 @@ body > header {
     top: 0;
     left: 0;
     right: 0;
+}
+@media all and (max-width: 480px){
+  body > header {
+    height: 50px;
+    overflow: hidden;
+  }
 }
 
 header.selector-list .logo,
@@ -51,9 +64,19 @@ div.logo {
     left: 50%;
     top: 50%;
     margin: -25px 0 0 -120px;
-    width: 50px;
-    height: 240px;
-    background: url('/img/logo.png');
+    background-image: url(../img/logo.png);
+    background-repeat: no-repeat;
+    width: 240px;
+    height: 50px;
+    /*background: url('/img/logo.png');*/
+}
+@media all and (max-width: 480px){
+  div.logo {
+      width: 200px;
+      height: 40px;
+      background-size: 80%;
+      margin: -15px 0 0 -85px;
+  }
 }
 
 div.mark {
@@ -105,11 +128,10 @@ div.neigh-list {
     transition: 0.5s ease-in-out right;
     position: absolute;
     top: 0;
-    right: -100%;
+    right: -1000px;
     background: #efefef;
     color: white;
-    min-width: 40%;
-    width: auto;
+    width: 40%;
     padding: 0 10px;
     bottom: 0;
     overflow: auto;
@@ -119,8 +141,23 @@ div.neigh-list.active {
     right:0;
 }
 
+@media all and (max-width: 480px){
+  div.neigh-list {
+    width: 75%;
+  }
+  div.selector-list {
+    width: 75%;
+  }
+  header.neigh-list .logo{
+      width: 44px;
+      height: 44px;
+      /*background-size: 80%;*/
+      margin: -25px 0 0 -75px;
+      background-image: url('../img/mark.png');
+  }
+}
 header.neigh-list .logo{
-  /*display: none;*/
+    background-image: url('../img/mark.png');
 }
 header.neigh-list .sel {
   opacity: .5;
@@ -129,6 +166,10 @@ header.neigh-list .sel {
 header.neigh-list .list {
   display: none;
     /*right: 50%;*/
+}
+
+ul.parks > li.park {
+  margin: 10px 0px;
 }
 
 div.park-view {

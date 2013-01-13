@@ -18,7 +18,7 @@
              });
            }
            data = d;
-             makeNeighborhoodList();
+           makeNeighborhoodList();
          }});
 
          $('#input-type').change(function() {
@@ -52,6 +52,8 @@
              });
            }
          });
+
+
 
          $('img.list').click(function() {
            var el = $('div.neigh-list');
@@ -111,21 +113,21 @@
                                'streetViewControl': false,
                                'zoom' : 12
            }).bind('init', function(evt, map) {
-	        $('#map-view').gmap('getCurrentPosition', function(position, status) {
-		    if ( status === 'OK' ) {
-		        var clientPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-		        $('#map-view').gmap('addMarker', {'position': clientPosition, 
-                                                          'bounds': false, 
-                                                          'icon' : youarehere});
-                        $('#map-view').gmap('get', 'map').setOptions({'center' : clientPosition,
-                                                                      'zoom' : 14});
-                        window.done = true;
-                        if(data)
-                            
-                            addtomap();
-		    }
-	        });
-            });
+             $('#map-view').gmap('getCurrentPosition', function(position, status) {
+               if ( status === 'OK' ) {
+                 var clientPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                 $('#map-view').gmap('addMarker', {'position': clientPosition, 
+                                     'bounds': false, 
+                                     'icon' : youarehere});
+                                     $('#map-view').gmap('get', 'map').setOptions({'center' : clientPosition,
+                                                                                  'zoom' : 14});
+                                                                                  window.done = true;
+                                                                                  if(data)
+
+                                                                                    addtomap();
+               }
+             });
+           });
          });
 
          function showPark(pid) {
@@ -229,36 +231,59 @@
            first = false;
          });
 
-    function makeNeighborhoodList() {
-        var t = $('script.neighborhood-template').html();
-        var nl = $('div.neigh-list').empty();
-        $.each(neighborhoods, function(i, n) {
-            var x = $(t);
-            
-            x.find('.name').text(n);
-            x.find('a.accordion-toggle').attr('href', "#collapse" + i);
-            x.find('div.accordionBody').attr('id', 'collapse' + i);
-            var ps = x.find('ul.parks');
-            var tp = $('.n-park-template').html();
-            $.each(window.data.parks, function(i, p) {
-                if(p.neighborhood === n) {
-                    var v = false;
-                    $.each(attributes, function(o, a) {
-                        if(!window.filters || (window.filters[a.attribute] && p[a.attribute] && p[a.attribute] !== 'none' && p[a.attribute] !== 'None'))
-                            v = true;
-                    });
-                    if(v) {
-                        var x = $(tp);
-                        x.find('a.name').text(p.name)
-                            .attr('data-park', p['park-id']);
-                        ps.append(x);
-                    }
-                }
-            });
-            
-            nl.append(x.html());
+         function makeNeighborhoodList() {
+           var t = $('script.neighborhood-template').html();
+           var nl = $('div.neigh-list').empty();
+           $.each(neighborhoods, function(i, n) {
+             var x = $(t);
+
+             x.find('.name').text(n);
+             x.find('a.accordion-toggle').attr('href', "#collapse" + i);
+             x.find('div.accordionBody').attr('id', 'collapse' + i);
+             var ps = x.find('ul.parks');
+             var tp = $('.n-park-template').html();
+             $.each(window.data.parks, function(i, p) {
+               if(p.neighborhood === n) {
+                 var v = false;
+                 $.each(attributes, function(o, a) {
+                   if(!window.filters || (window.filters[a.attribute] && p[a.attribute] && p[a.attribute] !== 'none' && p[a.attribute] !== 'None'))
+                     v = true;
+                 });
+                 if(v) {
+                   var x = $(tp);
+                   x.find('a.name').text(p.name)
+                   .attr('data-park', p['park-id']);
+                   ps.append(x);
+                 }
+               }
+             });
+
+             nl.append(x.html());
 
            });
+           // bind search inputs for each neighborhood
+         //
+         $('input.neigh-filter').keydown(function(){
+           var input = this;
+           window.setTimeout(function(){
+            var val = $(input).val().toLowerCase();
+            $(input).closest('.accordion-inner').find('.parks').children('.park').each(function(){
+              if(!$(this).children('a').text().toLowerCase().match(val)){
+                $(this).addClass('hidden');
+              }
+              else{
+                $(this).removeClass('hidden');
+              }
+            });
+           }, 5);
+         });
+         $('form.form-search button.btn').click(function(e){
+           e.preventDefault();
+           $(this).siblings('input.neigh-filter').val('');
+           $(this).siblings('input.neigh-filter').trigger('keydown');
+           return false;
+         });
+
          }
 
          $('.neigh-list a.name', 'body').live('click', function() {
@@ -266,5 +291,5 @@
            return false;
          });
 
-
+         
 }(window));
