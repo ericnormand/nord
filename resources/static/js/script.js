@@ -47,6 +47,7 @@
              el.addClass('active');
              $('header').addClass('selector-list');
              $('#map-view').click(function(){
+               $('#map-view').unbind('click');
                $('img.sel').trigger('click');
              });
            }
@@ -61,6 +62,7 @@
              el.addClass('active');
              $('header').addClass('neigh-list');
              $('#map-view').click(function(){
+               $('#map-view').unbind('click');
                $('img.list').trigger('click');
              });
              makeNeighborhoodList();
