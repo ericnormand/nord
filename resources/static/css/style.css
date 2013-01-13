@@ -1,12 +1,17 @@
 .align-right {
-    text-align: right;
+  text-align: right;
 }
 
-html { height: 100% }
-body { height: 100%; margin: 0px; padding: 0px; font-family: 'Lato', sans-serif; width: 100%;}
+html { 
+  height: 100%; 
+  width: 100%;
+  overflow: hidden;
+}
+body { height: 100%; margin: 0px; padding: 0px; font-family: 'Lato', sans-serif; width: 100%; overflow: hidden;
+}
 
 body.total {
-    overflow: hidden;
+  overflow: hidden;
 }
 article { height: 100% }
 
@@ -14,11 +19,11 @@ div.middle, div.inner {height: 100%}
 
 
 #map-view { 
-    position: absolute;
-    top: 60px;
-    left: 0;
-    right: 0;
-    bottom: 0;
+  position: absolute;
+  top: 60px;
+  left: 0;
+  right: 0;
+  bottom: 0;
 }
 
 @media all and (max-width: 480px){
@@ -28,12 +33,14 @@ div.middle, div.inner {height: 100%}
 }
 
 body > header {
-    height: 60px;
-    position: absolute;
-    width: 100%;
-    top: 0;
-    left: 0;
-    right: 0;
+  height: 60px;
+  position: absolute;
+  width: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  box-shadow: 0px 0px 3px 2px rgba(0,0,0,.2);
+  z-index: 1;
 }
 @media all and (max-width: 480px){
   body > header {
@@ -44,120 +51,127 @@ body > header {
 
 header.selector-list .logo,
 header.selector-list .list {
-    display: none;
+  display: none;
 }
 
 header.selector-list img.sel {
-    position: absolute;
-    right: 10px;
-    left: auto;
-    transform:rotate(180deg);
-    -ms-transform:rotate(180deg); /* IE 9 */
-    -moz-transform:rotate(180deg); /* Firefox */
-    -webkit-transform:rotate(180deg); /* Safari and Chrome */
-    -o-transform:rotate(180deg); /* Opera */
-    
+  position: absolute;
+  right: 10px;
+  left: auto;
+  transform:rotate(180deg);
+  -ms-transform:rotate(180deg); /* IE 9 */
+  -moz-transform:rotate(180deg); /* Firefox */
+  -webkit-transform:rotate(180deg); /* Safari and Chrome */
+  -o-transform:rotate(180deg); /* Opera */
+
 }
 
 div.logo {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    margin: -25px 0 0 -120px;
-    background-image: url(../img/logo.png);
-    background-repeat: no-repeat;
-    width: 240px;
-    height: 50px;
-    /*background: url('/img/logo.png');*/
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin: -15px 0 0 -120px;
+  background-image: url(../img/logo.png);
+  background-repeat: no-repeat;
+  width: 240px;
+  height: 50px;
+  /*background: url('/img/logo.png');*/
+  ;
+  background-size: 72%;
 }
 @media all and (max-width: 480px){
   div.logo {
-      width: 200px;
-      height: 40px;
-      background-size: 80%;
-      margin: -15px 0 0 -85px;
+    width: 200px;
+    height: 40px;
+    background-size: 70%;
+    margin: -13px 0 0 -85px;
   }
 }
 
 div.mark {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    margin: -22px 0 0 -22px;
-    background: url('/img/mark.png');
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  margin: -22px 0 0 -22px;
+  background: url('/img/mark.png');
 }
 
 div.selector-list {
-    transition: 0.5s ease-in-out left;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    left: -100%;
-    background: #efefef;
-    color: black;
-    min-width: 40%;
-    width: auto;
-    padding: 0 10px;
+  z-index: 2;
+  transition: 0.5s ease-in-out left;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -100%;
+  background: #efefef;
+  color: black;
+  min-width: 40%;
+  width: auto;
+  padding: 0 10px;
 }
 
 div.selector-list.active {
-    left: 0;
+  left: 0;
 }
 
 img.sel { 
-    position: absolute;
-    left: 10px;
-    top: 50%;
-    margin: -22px 0 0 0;
-    transform:rotate(0deg);
-    -ms-transform:rotate(0deg); /* IE 9 */
-    -moz-transform:rotate(0deg); /* Firefox */
-    -webkit-transform:rotate(0deg); /* Safari and Chrome */
-    -o-transform:rotate(0deg); /* Opera */
-    transition: 0.5s ease-in-out transform, 0.5s ease-in-out left;
+  position: absolute;
+  left: 25px;
+  top: 50%;
+  margin: -10px 0 0;
+  transform:rotate(0deg);
+  -ms-transform:rotate(0deg); /* IE 9 */
+  -moz-transform:rotate(0deg); /* Firefox */
+  -webkit-transform:rotate(0deg); /* Safari and Chrome */
+  -o-transform:rotate(0deg); /* Opera */
+  transition: 0.5s ease-in-out transform, 0.5s ease-in-out left;
+  width: 19px;
 }
 
 img.list {
-    position: absolute;
-    right: 10px;
-    top: 50%;
-    margin: -10px 0 0 0;
+  position: absolute;
+  right: 25px;
+  top: 50%;
+  margin: -5px 0 0 0;
+  width: 25px;
 }
 
 div.neigh-list {
-    transition: 0.5s ease-in-out right;
-    position: absolute;
-    top: 0;
-    right: -1000px;
-    background: #efefef;
-    color: white;
-    width: 40%;
-    padding: 0 10px;
-    bottom: 0;
-    overflow: auto;
+  z-index: 2;
+  transition: 0.5s ease-in-out right;
+  position: absolute;
+  top: 0;
+  right: 0px;
+  background: #efefef;
+  color: white;
+  width: 0px;
+  padding: 0;
+  bottom: 0;
+  overflow: auto;
 }
 
 div.neigh-list.active {
-    right:0;
+  width: 40%;
 }
 
 @media all and (max-width: 480px){
-  div.neigh-list {
+  div.neigh-list.active {
     width: 75%;
+    padding: 0 10px;
   }
   div.selector-list {
     width: 75%;
   }
   header.neigh-list .logo{
-      width: 44px;
-      height: 44px;
-      /*background-size: 80%;*/
-      margin: -25px 0 0 -75px;
-      background-image: url('../img/mark.png');
+    width: 44px;
+    height: 44px;
+    /*background-size: 80%;*/
+    margin: -25px 0 0 -75px;
+    background-image: url('../img/mark.png');
   }
 }
 header.neigh-list .logo{
-    background-image: url('../img/mark.png');
+  background-image: url('../img/mark.png');
 }
 header.neigh-list .sel {
   opacity: .5;
@@ -165,7 +179,7 @@ header.neigh-list .sel {
 
 header.neigh-list .list {
   display: none;
-    /*right: 50%;*/
+  /*right: 50%;*/
 }
 
 ul.parks > li.park {
@@ -173,59 +187,70 @@ ul.parks > li.park {
 }
 
 div.park-view {
-    position: absolute;
-    left: 0;
-    top: 0;
-    background: white;
-    width: 100%;
-    height: 100%;
+  z-index: 2;
+  position: absolute;
+  left: 0;
+  top: 0;
+  background: white;
+  width: 100%;
+  height: 100%;
 }
 
 div.park-view header {
-    height: 200px;
-    width: 100%;
-    overflow: hidden;
-    position: relative;
-    background: black;
+  height: 200px;
+  width: 100%;
+  overflow: hidden;
+  position: relative;
+  background: black;
 }
 
 div.park-view header img {
-    min-width: 100%;
-    min-height: 100%;
+  min-width: 100%;
+  min-height: 100%;
 }
 
 div.park-view header span.name {
-    width: 50%;
-    position: absolute;
-    bottom: 0;
-    right: 0;
-    text-transform: uppercase;
-    text-align: right;
-    margin: 0 10px 10px 0;
-    color: white;
-    font-size: 30px;
-    font-weight: 400;
-    line-height: 34px;
+  width: 50%;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  text-transform: uppercase;
+  text-align: right;
+  margin: 0 10px 10px 0;
+  color: white;
+  font-size: 30px;
+  font-weight: 400;
+  line-height: 34px;
 }
 
 div.park-view div.body {
-    margin: 20px;
+  margin: 20px;
 }
 
 div.park-view button.close {
-    font-size: 45px;
+  font-size: 45px;
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  color: #fff;
+  opacity: 1;
+  height: 40px;
+  padding: 5px 8px 20px 8px;
+  background: rgba(0,0,0, .5);
 }
 
 div.park-view div.body .address {
-    color: black;
-    font-size: 20px;
-    
+  color: black;
+  font-size: 20px;
+
 }
 
 div.park-view div.body .city {
-    font-size: 18px;
+  font-size: 18px;
 }
 
 div.selector-list .selected {
-    border: 1px solid white;
+  border: 1px solid white;
 }
+Window size: x 
+Viewport size: x

@@ -77,7 +77,7 @@
 
          var pin = {
            'url' : '/img/pin.png',
-           'anchor' : new google.maps.Point(10, 56)
+           'anchor' : new google.maps.Point(10, 56),
          };
 
          window.clearmap  = function() {
@@ -262,27 +262,27 @@
 
            });
            // bind search inputs for each neighborhood
-         //
-         $('input.neigh-filter').keydown(function(){
-           var input = this;
-           window.setTimeout(function(){
-            var val = $(input).val().toLowerCase();
-            $(input).closest('.accordion-inner').find('.parks').children('.park').each(function(){
-              if(!$(this).children('a').text().toLowerCase().match(val)){
-                $(this).addClass('hidden');
-              }
-              else{
-                $(this).removeClass('hidden');
-              }
-            });
-           }, 5);
-         });
-         $('form.form-search button.btn').click(function(e){
-           e.preventDefault();
-           $(this).siblings('input.neigh-filter').val('');
-           $(this).siblings('input.neigh-filter').trigger('keydown');
-           return false;
-         });
+           //
+           $('input.neigh-filter').keydown(function(){
+             var input = this;
+             window.setTimeout(function(){
+               var val = $(input).val().toLowerCase();
+               $(input).closest('.accordion-inner').find('.parks').children('.park').each(function(){
+                 if(!$(this).children('a').text().toLowerCase().match(val)){
+                   $(this).addClass('hidden');
+                 }
+                 else{
+                   $(this).removeClass('hidden');
+                 }
+               });
+             }, 5);
+           });
+           $('form.form-search button.btn').click(function(e){
+             e.preventDefault();
+             $(this).siblings('input.neigh-filter').val('');
+             $(this).siblings('input.neigh-filter').trigger('keydown');
+             return false;
+           });
 
          }
 
@@ -291,5 +291,5 @@
            return false;
          });
 
-         
+
 }(window));
