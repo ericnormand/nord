@@ -42,11 +42,12 @@ header.selector-list img.sel {
     
 }
 
-img.logo {
+div.logo {
     position: absolute;
     left: 50%;
     top: 50%;
     margin: -25px 0 0 -120px;
+    background-image: url(../images/logo.png);
 }
 
 div.selector-list {
@@ -90,11 +91,10 @@ div.neigh-list {
     transition: 0.5s ease-in-out right;
     position: absolute;
     top: 0;
-    right: -100%;
+    right: -1000px;
     background: #efefef;
     color: white;
-    min-width: 40%;
-    width: auto;
+    width: 40%;
     padding: 0 10px;
     bottom: 0;
     overflow: auto;
