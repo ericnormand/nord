@@ -3,7 +3,11 @@
 }
 
 html { height: 100% }
-body { height: 100%; margin: 0px; padding: 0px; font-family: 'Lato', sans-serif; width: 100%; overflow:hidden;}
+body { height: 100%; margin: 0px; padding: 0px; font-family: 'Lato', sans-serif; width: 100%;}
+
+body.total {
+    overflow: hidden;
+}
 article { height: 100% }
 
 div.middle, div.inner {height: 100%}
