@@ -3,7 +3,11 @@
 }
 
 html { height: 100% }
-body { height: 100%; margin: 0px; padding: 0px; font-family: 'Lato', sans-serif; width: 100%; overflow:hidden;}
+body { height: 100%; margin: 0px; padding: 0px; font-family: 'Lato', sans-serif; width: 100%;}
+
+body.total {
+    overflow: hidden;
+}
 article { height: 100% }
 
 div.middle, div.inner {height: 100%}
@@ -86,7 +90,7 @@ div.mark {
 div.selector-list {
     transition: 0.5s ease-in-out left;
     position: absolute;
-    /*top: 0;*/
+    top: 0;
     bottom: 0;
     left: -100%;
     background: #efefef;

@@ -76,7 +76,7 @@
     (include-css "http://fonts.googleapis.com/css?family=Lato:300,400,700")
     (include-css "/css/style.css")]
 
-   [:body.home
+   [:body.total
     (cc "lt IE 7"
         [:p.chromeframe
          "Your browser is " [:em "ancient!"]
