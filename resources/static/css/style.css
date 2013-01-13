@@ -8,12 +8,19 @@ article { height: 100% }
 
 div.middle, div.inner {height: 100%}
 
+
 #map-view { 
     position: absolute;
     top: 60px;
     left: 0;
     right: 0;
     bottom: 0;
+}
+
+@media all and (max-width: 480px){
+  #map-view { 
+    top: 50px;
+  }
 }
 
 body > header {
@@ -23,6 +30,12 @@ body > header {
     top: 0;
     left: 0;
     right: 0;
+}
+@media all and (max-width: 480px){
+  body > header {
+    height: 50px;
+    overflow: hidden;
+  }
 }
 
 header.selector-list .logo,
@@ -47,7 +60,27 @@ div.logo {
     left: 50%;
     top: 50%;
     margin: -25px 0 0 -120px;
-    background-image: url(../images/logo.png);
+    background-image: url(../img/logo.png);
+    background-repeat: no-repeat;
+    width: 240px;
+    height: 50px;
+    /*background: url('/img/logo.png');*/
+}
+@media all and (max-width: 480px){
+  div.logo {
+      width: 200px;
+      height: 40px;
+      background-size: 80%;
+      margin: -15px 0 0 -85px;
+  }
+}
+
+div.mark {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin: -22px 0 0 -22px;
+    background: url('/img/mark.png');
 }
 
 div.selector-list {
@@ -104,8 +137,23 @@ div.neigh-list.active {
     right:0;
 }
 
+@media all and (max-width: 480px){
+  div.neigh-list {
+    width: 75%;
+  }
+  div.selector-list {
+    width: 75%;
+  }
+  header.neigh-list .logo{
+      width: 44px;
+      height: 44px;
+      /*background-size: 80%;*/
+      margin: -25px 0 0 -75px;
+      background-image: url('../img/mark.png');
+  }
+}
 header.neigh-list .logo{
-  /*display: none;*/
+    background-image: url('../img/mark.png');
 }
 header.neigh-list .sel {
   opacity: .5;
@@ -114,6 +162,10 @@ header.neigh-list .sel {
 header.neigh-list .list {
   display: none;
     /*right: 50%;*/
+}
+
+ul.parks > li.park {
+  margin: 10px 0px;
 }
 
 div.park-view {
