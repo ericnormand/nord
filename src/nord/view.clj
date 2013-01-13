@@ -122,58 +122,23 @@
     :icon "/img/icon/tennis.png"}
    {:attribute "basketball"
     :title "Basketball"
-    :icon "/img/icon/basket.png"}
+    :icon "/img/icon/basketball.png"}
    {:attribute "bicycle"
     :title "Bicycle"
     :icon "/img/icon/bicycle.png"}
-
+   {:attribute "picnic"
+    :title "Picnic tables"
+    :icon "/img/icon/picnic.png"}
+   {:attribute "all-purpose-field"
+    :title "Sports field"
+    :icon "/img/icon/sportsfield.png"}
    
    {:attribute "historic"
     :title "Historic"
     :icon "/img/icon/monument.png"}
-   {:attribute "festival-space"
-    :title "Festival space"
-    :icon "/img/icon/festival.png"}
-   {:attribute "all-purpose-field"
-    :title "Field"
-    :icon "/img/icon/field.png"}
-   
-   {:attribute "tennis"
-    :title "Tennis"
-    :icon "/img/icon/tennis.png"}
    {:attribute "swimming-pool"
-    :title "Swim"
-    :icon "/img/icon/swim.png"}
-   {:attribute "restrooms"
-    :title "Restroom"
-    :icon "/img/icon/wc.png"}
-   {:attribute "water-fountain"
-    :title "Water fountain"
-    :icon "/img/icon/waterfountain.png"}
-   {:attribute "showers"
-    :title "Showers"
-    :icon "/img/icon/shower.png"}
-   {:attribute "lighting"
-    :title "Lighting"
-    :icon "/img/icon/light.png"}
-   {:attribute "batting-cage"
-    :title "Batting cages"
-    :icon "/img/icon/baseball.png"}
-   {:attribute "track-field"
-    :title "Track field"
-    :icon "/img/icon/trackfield.png"}
-   {:attribute "basketball"
-    :title "Basketball"
-    :icon "/img/icon/basket.png"}
-   {:attribute "rec-center"
-    :title "Rec center"
-    :icon "/img/icon/reccenter.png"}
-   {:attribute "parking"
-    :title "Parking"
-    :icon "/img/icon/parking.png"}
-   {:attribute "picnic"
-    :title "Picnic tables"
-    :icon "/img/icon/picnic.png"}])
+    :title "Swimming"
+    :icon "/img/icon/swimming.png"}])
 
 (def selectors
   [{:attribute "historic"
