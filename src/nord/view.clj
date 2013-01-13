@@ -66,7 +66,8 @@
     [:meta {:name "description"
             :content (:description pg)}]
     [:meta {:name "viewport" :content "width=device-width, initial-scale=1.0, user-scalable=no"}]
-
+    [:link {:rel "shortcut icon"
+            :href "/img/fav.png"}]
     (cc "lt IE 9"
         (include-js "http://html5shiv.googlecode.com/svn/trunk/html5.js"))
     (include-css "http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css")
@@ -85,7 +86,7 @@
     
     [:header
      [:img.sel {:src "/img/arrows.png"}]
-     [:img.logo {:src "/img/logo.png"}]
+     [:div.logo]
      [:img.list {:src "/img/list_text.png"}]]
     
     [:article
