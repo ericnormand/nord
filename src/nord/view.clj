@@ -191,7 +191,8 @@
      [:form.form-search
       [:div.input-append
        [:input.input-medium.search-query.neigh-filter
-        {:type "text"}]
+        {:type "text"
+         :placeholder "Type here to filter list"}]
        [:button.btn
         "Clear"]]]
      [:ul.parks]]]])
