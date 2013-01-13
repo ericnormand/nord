@@ -108,7 +108,7 @@
     ]))
 
 (def selectors
-  [   {:attribute "historic"
+  [{:attribute "historic"
     :title "Historic"
     :icon "/img/icon/monument.png"}
    {:attribute "festival-space"
