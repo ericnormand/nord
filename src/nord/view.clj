@@ -47,12 +47,12 @@
     [:footer]
     (include-js "http://maps.google.com/maps/api/js?sensor=true")
     (include-js "//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js")
-    (include-js "//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js")    
+    (comment (include-js "//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"))    
     (include-js "/js/jquery.ui.map.full.min.js")
     (include-js "/js/jquery.ui.map.services.js")
     (include-js "/js/jquery.ui.map.extensions.js")
 
-    ;;(include-js "/bootstrap/js/bootstrap.min.js")
+    (include-js "/bootstrap/js/bootstrap.min.js")
     (include-js "/js/script.js")
     ;; put google analytics stuff here when you're ready
     ]))
@@ -101,7 +101,7 @@
     (include-js "/js/jquery.ui.map.services.js")
     (include-js "/js/jquery.ui.map.extensions.js")
 
-    ;;(include-js "/bootstrap/js/bootstrap.min.js")
+    (include-js "/bootstrap/js/bootstrap.min.js")
     (include-js "/js/script.js")
     ;; put google analytics stuff here when you're ready
     ]))
@@ -178,13 +178,20 @@
    [:a.name {:href "#"}]])
 
 (defn neighborhood-template []
-  [:h3
-   [:span.name]
-   [:span.number]]
-  [:ul.parks])
+  [:div.accordion-group
+   [:div.accordion-heading
+    [:a.accordion-toggle
+     {:data-toggle "collapse"
+      :data-parent ".neigh-list"
+      :href "#collapseOne"}
+     [:span.name]
+     [:span.number]]]
+   [:div.accordionBody.collapse
+    [:div.accordion-inner
+     [:ul.parks]]]])
 
 (defn neighborhood-list [parks]
-  [:div.neigh-list
+  [:div.neigh-list.accordion
    ])
 
 (defn attribute-template []

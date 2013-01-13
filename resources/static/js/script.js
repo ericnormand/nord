@@ -18,7 +18,7 @@
              });
            }
            data = d;
-
+             makeNeighborhoodList();
          }});
 
          $('#input-type').change(function() {
@@ -229,35 +229,36 @@
            first = false;
          });
 
-         function makeNeighborhoodList() {
-           var t = $('script.neighborhood-template').html();
-           var nl = $('div.neigh-list').empty();
-           $.each(neighborhoods, function(i, n) {
-             var x = $(t);
-
-             x.find('.name').text(n);
-             var ps = x.find('ul.parks');
-             var tp = $('.n-park-template').html();
-             $.each(window.data.parks, function(i, p) {
-               if(p.neighborhood === n) {
-                 var v = false;
-                 $.each(attributes, function(o, a) {
-                   if(!window.filters || (window.filters[a.attribute] && p[a.attribute] && p[a.attribute] !== 'none' && p[a.attribute] !== 'None'))
-                     v = true;
-                 });
-                 if(v) {
-                   var x = $(tp);
-                   x.find('a.name').text(p.name)
-                   .attr('data-park', p['park-id']);
-                   ps.append(x);
-                 }
-               }
-             });
-
-             nl.append(x);
+    function makeNeighborhoodList() {
+        var t = $('script.neighborhood-template').html();
+        var nl = $('div.neigh-list').empty();
+        $.each(neighborhoods, function(i, n) {
+            var x = $(t);
+            
+            x.find('.name').text(n);
+            x.find('a.accordion-toggle').attr('href', "#collapse" + i);
+            x.find('div.accordionBody').attr('id', 'collapse' + i);
+            var ps = x.find('ul.parks');
+            var tp = $('.n-park-template').html();
+            $.each(window.data.parks, function(i, p) {
+                if(p.neighborhood === n) {
+                    var v = false;
+                    $.each(attributes, function(o, a) {
+                        if(!window.filters || (window.filters[a.attribute] && p[a.attribute] && p[a.attribute] !== 'none' && p[a.attribute] !== 'None'))
+                            v = true;
+                    });
+                    if(v) {
+                        var x = $(tp);
+                        x.find('a.name').text(p.name)
+                            .attr('data-park', p['park-id']);
+                        ps.append(x);
+                    }
+                }
+            });
+            
+            nl.append(x.html());
 
            });
-           nl.accordion();
          }
 
          $('.neigh-list a.name', 'body').live('click', function() {
