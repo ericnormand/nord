@@ -18,6 +18,7 @@
                                            });
                                        }
                                        data = d;
+
                                    }});
 
     $('#input-type').change(function() {
@@ -101,22 +102,23 @@
                              'zoomControl' : false,
                              'streetViewControl': false,
                              'zoom' : 12
-                            }).bind('init', function(evt, map) {
-	    $('#map-view').gmap('getCurrentPosition', function(position, status) {
-		if ( status === 'OK' ) {
-		    var clientPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-		    $('#map-view').gmap('addMarker', {'position': clientPosition, 
-                                                      'bounds': false, 
-                                                      'icon' : youarehere});
-                    $('#map-view').gmap('get', 'map').setOptions({'center' : clientPosition,
-                                                                  'zoom' : 14});
-                    window.done = true;
-                    if(data)
-                    
-                        addtomap();
-		}
-	    });
-        });
+                            })
+            .bind('init', function(evt, map) {
+	        $('#map-view').gmap('getCurrentPosition', function(position, status) {
+		    if ( status === 'OK' ) {
+		        var clientPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+		        $('#map-view').gmap('addMarker', {'position': clientPosition, 
+                                                          'bounds': false, 
+                                                          'icon' : youarehere});
+                        $('#map-view').gmap('get', 'map').setOptions({'center' : clientPosition,
+                                                                      'zoom' : 14});
+                        window.done = true;
+                        if(data)
+                            
+                            addtomap();
+		    }
+	        });
+            });
     });
 
     function showPark(pid) {
@@ -255,5 +257,6 @@
         showPark($(this).attr('data-park'));
         return false;
     });
+
 
 }(window));
