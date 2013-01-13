@@ -231,8 +231,10 @@
     [:span.name]]
    [:div.body
     [:button.close "&times;"]
-    [:div.address]
-    [:div.city "New Orleans, LA"]
+    [:a
+     [:div.address]
+     [:div.city "New Orleans, LA"]
+     [:img.map_icon {:src "/img/map_icon.png"}]]
     [:div.attributes]
     ]])
 
