@@ -141,54 +141,17 @@
     :icon "/img/icon/swimming.png"}])
 
 (def selectors
-  [{:attribute "historic"
-    :title "Historic"
-    :icon "/img/icon/monument.png"}
-   {:attribute "festival-space"
-    :title "Festival space"
-    :icon "/img/icon/festival.png"}
-   {:attribute "all-purpose-field"
-    :title "Field"
-    :icon "/img/icon/field.png"}
-   {:attribute "playground"
-    :title "Playground"
-    :icon "/img/icon/playground.png"}
-   {:attribute "tennis"
-    :title "Tennis"
-    :icon "/img/icon/tennis.png"}
-   {:attribute "swimming-pool"
-    :title "Swim"
-    :icon "/img/icon/swim.png"}
-   {:attribute "restrooms"
-    :title "Restroom"
-    :icon "/img/icon/wc.png"}
-   {:attribute "water-fountain"
-    :title "Water fountain"
-    :icon "/img/icon/waterfountain.png"}
-   {:attribute "showers"
-    :title "Showers"
-    :icon "/img/icon/shower.png"}
-   {:attribute "lighting"
-    :title "Lighting"
-    :icon "/img/icon/light.png"}
-   {:attribute "batting-cage"
-    :title "Batting cages"
-    :icon "/img/icon/baseball.png"}
-   {:attribute "track-field"
-    :title "Track field"
-    :icon "/img/icon/trackfield.png"}
-   {:attribute "basketball"
-    :title "Basketball"
-    :icon "/img/icon/basket.png"}
-   {:attribute "rec-center"
-    :title "Rec center"
-    :icon "/img/icon/reccenter.png"}
-   {:attribute "parking"
-    :title "Parking"
-    :icon "/img/icon/parking.png"}
-   {:attribute "picnic"
-    :title "Picnic tables"
-    :icon "/img/icon/picnic.png"}])
+  (concat features
+          
+          [{:attribute "restrooms"
+            :title "Restroom"
+            :icon "/img/icon/wc.png"}
+           {:attribute "showers"
+            :title "Showers"
+            :icon "/img/icon/shower.png"}
+           {:attribute "lighting"
+            :title "Lighting"
+            :icon "/img/icon/light.png"}]))
 
 (defn selector-list []
 
@@ -236,13 +199,14 @@
      [:span.number]]]
    [:div.accordionBody.collapse
     [:div.accordion-inner
-     [:form.form-search
-      [:div.input-append
-       [:input.input-medium.search-query.neigh-filter
-        {:type "text"
-         :placeholder "Type here to filter list"}]
-       [:button.btn
-        "Clear"]]]
+     (comment
+       [:form.form-search
+        [:div.input-append
+         [:input.input-medium.search-query.neigh-filter
+          {:type "text"
+           :placeholder "Type here to filter list"}]
+         [:button.btn
+          "Clear"]]])
      [:ul.parks]]]])
 
 (defn neighborhood-list [parks]

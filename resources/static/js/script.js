@@ -218,7 +218,7 @@
              filters = {};
              filters[a] = true;
            } else {
-             if(el.hasClass(c)) {
+             if(el.parent().hasClass(c)) {
                el.parent().removeClass(c);
                delete filters[a];
              } else {
