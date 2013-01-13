@@ -2,6 +2,26 @@
   window.done = false;
   window.data = null;
 
+<<<<<<< HEAD
+    $.ajax('/location/list.json', {dataType: 'json',
+                                   success: function(d) {
+                                       if(window.done) {
+                                           $.each(d.parks, function(i, e) {
+                                               if(e.latitude && e.longitude) {
+                                                   console.log(e.name);
+                                                   console.log(e.latitude);
+                                                   console.log(e.longitude);
+                                                   var point = new google.maps.LatLng(e.latitude, e.longitude);
+                                                   $('#map-view').gmap('addMarker', {'position': point, 
+                                                                                     'bounds': false, 
+                                                                                     'icon' : pin});
+                                               }
+                                           });
+                                       }
+                                       data = d;
+
+                                   }});
+=======
   $.ajax('/location/list.json', {dataType: 'json',
          success: function(d) {
            if(window.done) {
@@ -18,8 +38,8 @@
              });
            }
            data = d;
-           makeNeighborhoodList();
          }});
+>>>>>>> 41ee3b60fef98b4232b82823132b4d905786227c
 
          $('#input-type').change(function() {
            var el = $(this);
@@ -46,14 +66,8 @@
            } else {
              el.addClass('active');
              $('header').addClass('selector-list');
-             $('#map-view').click(function(){
-               $('#map-view').unbind('click');
-               $('img.sel').trigger('click');
-             });
            }
          });
-
-
 
          $('img.list').click(function() {
            var el = $('div.neigh-list');
@@ -63,10 +77,6 @@
            } else {
              el.addClass('active');
              $('header').addClass('neigh-list');
-             $('#map-view').click(function(){
-               $('#map-view').unbind('click');
-               $('img.list').trigger('click');
-             });
              makeNeighborhoodList();
            }
          });
@@ -77,7 +87,7 @@
 
          var pin = {
            'url' : '/img/pin.png',
-           'anchor' : new google.maps.Point(10, 56),
+           'anchor' : new google.maps.Point(10, 56)
          };
 
          window.clearmap  = function() {
@@ -105,6 +115,33 @@
            });
          };
 
+<<<<<<< HEAD
+    $(function(){
+        $('#map-view').gmap({'center' : '-90,30',
+                             'navigationControl' : false,
+                             'mapTypeControl' : false,
+                             'zoomControl' : false,
+                             'streetViewControl': false,
+                             'zoom' : 12
+                            })
+            .bind('init', function(evt, map) {
+	        $('#map-view').gmap('getCurrentPosition', function(position, status) {
+		    if ( status === 'OK' ) {
+		        var clientPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+		        $('#map-view').gmap('addMarker', {'position': clientPosition, 
+                                                          'bounds': false, 
+                                                          'icon' : youarehere});
+                        $('#map-view').gmap('get', 'map').setOptions({'center' : clientPosition,
+                                                                      'zoom' : 14});
+                        window.done = true;
+                        if(data)
+                            
+                            addtomap();
+		    }
+	        });
+            });
+    });
+=======
          $(function(){
            $('#map-view').gmap({'center' : '-90,30',
                                'navigationControl' : false,
@@ -123,6 +160,7 @@
                                                                                   'zoom' : 14});
                                                                                   window.done = true;
                                                                                   if(data)
+>>>>>>> 41ee3b60fef98b4232b82823132b4d905786227c
 
                                                                                     addtomap();
                }
@@ -201,35 +239,34 @@
          window.filters = null;
 
          var first = true;
-         $('.selector-list li a').click(function() {
+         $('.selector-list div').click(function() {
            var el = $(this);
            var a = el.attr('data-attr');
-           var c = 'active';
+           var c = 'selected';
            if(a === 'all') {
              first = true;
              window.filters = null;
-             $('.selector-list li').addClass(c);
+             $('.selector-list div').addClass(c);
              clearmap();
              addtomap();
              return;
            } else if(first) {
-             $('.selector-list li').removeClass(c);
-             el.parent().addClass(c);
+             $('.selector-list div').removeClass(c);
+             el.addClass(c);
              filters = {};
              filters[a] = true;
            } else {
              if(el.hasClass(c)) {
-               el.parent().removeClass(c);
+               el.removeClass(c);
                delete filters[a];
              } else {
-               el.parent().addClass(c);
+               el.addClass(c);
                filters[a] = true;
              }
            }
            clearmap();
            addtomap();
            first = false;
-             makeNeighborhoodList();
          });
 
          function makeNeighborhoodList() {
@@ -239,8 +276,6 @@
              var x = $(t);
 
              x.find('.name').text(n);
-             x.find('a.accordion-toggle').attr('href', "#collapse" + i);
-             x.find('div.accordionBody').attr('id', 'collapse' + i);
              var ps = x.find('ul.parks');
              var tp = $('.n-park-template').html();
              $.each(window.data.parks, function(i, p) {
@@ -259,40 +294,16 @@
                }
              });
 
-             nl.append(x.html());
+             nl.append(x);
 
            });
-           // bind search inputs for each neighborhood
-           //
-           $('input.neigh-filter').keydown(function(){
-             var input = this;
-             window.setTimeout(function(){
-               var val = $(input).val().toLowerCase();
-               $(input).closest('.accordion-inner').find('.parks').children('.park').each(function(){
-                 if(!$(this).children('a').text().toLowerCase().match(val)){
-                   $(this).addClass('hidden');
-                 }
-                 else{
-                   $(this).removeClass('hidden');
-                 }
-               });
-             }, 5);
-           });
-           $('form.form-search button.btn').click(function(e){
-             e.preventDefault();
-             $(this).siblings('input.neigh-filter').val('');
-             $(this).siblings('input.neigh-filter').trigger('keydown');
-             return false;
-           });
-
+           nl.accordion();
          }
 
          $('.neigh-list a.name', 'body').live('click', function() {
            showPark($(this).attr('data-park'));
            return false;
          });
-
-    
 
 
 }(window));

@@ -39,7 +39,7 @@
      [:a {:src "/"}
       [:img.logo {:src "/img/logo.png"}]]]
     
-    [:article
+    [:article.edit
      [:div.middle
       [:div.inner
        rst]]]
@@ -107,6 +107,74 @@
     ;; put google analytics stuff here when you're ready
     ]))
 
+(def features
+  [{:attribute "running"
+    :title "Running"
+    :icon "/img/icon/running.png"}
+   {:attribute "playground"
+    :title "Playground"
+    :icon "/img/icon/playground.png"}
+   {:attribute "dog-park"
+    :title "Dog park"
+    :icon "/img/icon/dogpark.png"}
+   {:attribute "tennis"
+    :title "Tennis"
+    :icon "/img/icon/tennis.png"}
+   {:attribute "basketball"
+    :title "Basketball"
+    :icon "/img/icon/basket.png"}
+   {:attribute "bicycle"
+    :title "Bicycle"
+    :icon "/img/icon/bicycle.png"}
+
+   
+   {:attribute "historic"
+    :title "Historic"
+    :icon "/img/icon/monument.png"}
+   {:attribute "festival-space"
+    :title "Festival space"
+    :icon "/img/icon/festival.png"}
+   {:attribute "all-purpose-field"
+    :title "Field"
+    :icon "/img/icon/field.png"}
+   
+   {:attribute "tennis"
+    :title "Tennis"
+    :icon "/img/icon/tennis.png"}
+   {:attribute "swimming-pool"
+    :title "Swim"
+    :icon "/img/icon/swim.png"}
+   {:attribute "restrooms"
+    :title "Restroom"
+    :icon "/img/icon/wc.png"}
+   {:attribute "water-fountain"
+    :title "Water fountain"
+    :icon "/img/icon/waterfountain.png"}
+   {:attribute "showers"
+    :title "Showers"
+    :icon "/img/icon/shower.png"}
+   {:attribute "lighting"
+    :title "Lighting"
+    :icon "/img/icon/light.png"}
+   {:attribute "batting-cage"
+    :title "Batting cages"
+    :icon "/img/icon/baseball.png"}
+   {:attribute "track-field"
+    :title "Track field"
+    :icon "/img/icon/trackfield.png"}
+   {:attribute "basketball"
+    :title "Basketball"
+    :icon "/img/icon/basket.png"}
+   {:attribute "rec-center"
+    :title "Rec center"
+    :icon "/img/icon/reccenter.png"}
+   {:attribute "parking"
+    :title "Parking"
+    :icon "/img/icon/parking.png"}
+   {:attribute "picnic"
+    :title "Picnic tables"
+    :icon "/img/icon/picnic.png"}])
+
 (def selectors
   [{:attribute "historic"
     :title "Historic"
@@ -158,13 +226,27 @@
     :icon "/img/icon/picnic.png"}])
 
 (defn selector-list []
+
+
+  
+
   [:div.selector-list
    [:div {:data-attr "all"}
     [:span "All"]]
    (for [s selectors]
      [:div.selected {:data-attr (:attribute s)}
       [:img {:src (:icon s)}]
-      [:span (:title s)]])])
+      [:span (:title s)]])]
+
+  [:div.selector-list
+   [:ul.nav.nav-list
+    (for [s features]
+      [:li.filter
+       [:a {:href "#"
+            :data-attr (:attribute s)}
+        [:img {:src (:icon s)}]
+        [:span (:title s)]]])]]
+  )
 
 (def neighborhoods
   ["Uptown"

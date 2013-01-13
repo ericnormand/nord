@@ -5,27 +5,15 @@
 html { 
   height: 100%; 
   width: 100%;
+  overflow: hidden;
 }
-body { height: 100%; margin: 0px; padding: 0px; font-family: 'Lato', sans-serif; width: 100%; 
+body { height: 100%; margin: 0px; padding: 0px; font-family: 'Lato', sans-serif; width: 100%; overflow: hidden;
 }
 
 body.total {
   overflow: hidden;
 }
-article { height: 100%;
- }
-
-article.edit {
-position: absolute;
-  top: 60px;
-  left: 0;
-  right: 0;
-  bottom: 0;
-}
-
-.wrapper {
-
-}
+article { height: 100% }
 
 div.middle, div.inner {height: 100%}
 
@@ -68,40 +56,35 @@ header.selector-list .list {
 
 header.selector-list img.sel {
   position: absolute;
-  left: 40%;
-  margin-left: 30px;
+  right: 10px;
+  left: auto;
   transform:rotate(180deg);
   -ms-transform:rotate(180deg); /* IE 9 */
   -moz-transform:rotate(180deg); /* Firefox */
   -webkit-transform:rotate(180deg); /* Safari and Chrome */
   -o-transform:rotate(180deg); /* Opera */
-}
 
-@media all and (max-width: 480px){
-  header.selector-list img.sel {
-    left: 75%;
-  }
 }
 
 div.logo {
   position: absolute;
   left: 50%;
   top: 50%;
-  margin: -12px 0 0 -75px;
+  margin: -15px 0 0 -120px;
   background-image: url(../img/logo.png);
   background-repeat: no-repeat;
   width: 240px;
   height: 50px;
   /*background: url('/img/logo.png');*/
   ;
-  background-size: 60%;
+  background-size: 72%;
 }
 @media all and (max-width: 480px){
   div.logo {
-    width: 120px;
+    width: 200px;
     height: 40px;
-    background-size: 100%;
-    margin: -10px 0 0 -66px;
+    background-size: 70%;
+    margin: -13px 0 0 -85px;
   }
 }
 
@@ -133,44 +116,42 @@ div.selector-list.active {
 
 img.sel { 
   position: absolute;
-  left: 15px;
+  left: 25px;
   top: 50%;
-  margin: -8px 0 0;
+  margin: -10px 0 0;
   transform:rotate(0deg);
   -ms-transform:rotate(0deg); /* IE 9 */
   -moz-transform:rotate(0deg); /* Firefox */
   -webkit-transform:rotate(0deg); /* Safari and Chrome */
   -o-transform:rotate(0deg); /* Opera */
   transition: 0.5s ease-in-out transform, 0.5s ease-in-out left;
-  width: 16px;
+  width: 19px;
 }
 
 img.list {
   position: absolute;
-  right: 14px;
+  right: 25px;
   top: 50%;
   margin: -5px 0 0 0;
   width: 25px;
 }
 
 div.neigh-list {
-  height: 100%;
   z-index: 2;
   transition: 0.5s ease-in-out right;
   position: absolute;
-  top: 60px;
+  top: 0;
   right: 0px;
   background: #efefef;
   color: white;
   width: 0px;
   padding: 0;
   bottom: 0;
-  z-index: 0;
   overflow: auto;
 }
 
 div.neigh-list.active {
-  width: 100%;
+  width: 40%;
 }
 
 @media all and (max-width: 480px){
@@ -190,6 +171,7 @@ div.neigh-list.active {
   }
 }
 header.neigh-list .logo{
+  background-image: url('../img/mark.png');
 }
 header.neigh-list .sel {
   opacity: .5;
@@ -215,7 +197,7 @@ div.park-view {
 }
 
 div.park-view header {
-  height: 40%;
+  height: 200px;
   width: 100%;
   overflow: hidden;
   position: relative;
@@ -228,18 +210,17 @@ div.park-view header img {
 }
 
 div.park-view header span.name {
-  width: 100%;
+  width: 50%;
   position: absolute;
   bottom: 0;
   right: 0;
   text-transform: uppercase;
   text-align: right;
-  padding: 20px 10px 10px;
+  margin: 0 10px 10px 0;
   color: white;
   font-size: 30px;
   font-weight: 400;
-  line-height: 34px;  
-  background: -webkit-linear-gradient(transparent, rgba(0, 0, 0, .7));
+  line-height: 34px;
 }
 
 div.park-view div.body {
