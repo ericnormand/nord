@@ -222,7 +222,7 @@
 
     function makeNeighborhoodList() {
         var t = $('script.neighborhood-template').html();
-        var nl = $('.neigh-list').empty();
+        var nl = $('div.neigh-list').empty();
         $.each(neighborhoods, function(i, n) {
             var x = $(t);
             
@@ -246,7 +246,9 @@
             });
 
             nl.append(x);
+
         });
+        nl.accordion();
     }
 
     $('.neigh-list a.name', 'body').live('click', function() {
