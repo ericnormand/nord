@@ -1,3 +1,168 @@
 .align-right {
     text-align: right;
 }
+
+html { height: 100% }
+body { height: 100%; margin: 0px; padding: 0px; font-family: 'Lato', sans-serif; width: 100%; overflow:hidden;}
+article { height: 100% }
+
+div.middle, div.inner {height: 100%}
+
+#map-view { 
+    position: absolute;
+    top: 60px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+}
+
+body > header {
+    height: 60px;
+    position: absolute;
+    width: 100%;
+    top: 0;
+    left: 0;
+    right: 0;
+}
+
+header.selector-list .logo,
+header.selector-list .list {
+    display: none;
+}
+
+header.selector-list img.sel {
+    position: absolute;
+    right: 10px;
+    left: auto;
+    transform:rotate(180deg);
+    -ms-transform:rotate(180deg); /* IE 9 */
+    -moz-transform:rotate(180deg); /* Firefox */
+    -webkit-transform:rotate(180deg); /* Safari and Chrome */
+    -o-transform:rotate(180deg); /* Opera */
+    
+}
+
+img.logo {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin: -25px 0 0 -120px;
+}
+
+div.selector-list {
+    transition: 0.5s ease-in-out left;
+    position: absolute;
+    top: 0;
+    left: -100%;
+    background: black;
+    color: white;
+    width: 75%;
+}
+
+div.selector-list.active {
+    left: 0;
+}
+
+img.sel { 
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    margin: -22px 0 0 0;
+    transform:rotate(0deg);
+    -ms-transform:rotate(0deg); /* IE 9 */
+    -moz-transform:rotate(0deg); /* Firefox */
+    -webkit-transform:rotate(0deg); /* Safari and Chrome */
+    -o-transform:rotate(0deg); /* Opera */
+    transition: 0.5s ease-in-out transform, 0.5s ease-in-out left;
+}
+
+img.list {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    margin: -10px 0 0 0;
+}
+
+div.neigh-list {
+    transition: 0.5s ease-in-out right;
+    position: absolute;
+    top: 0;
+    right: -100%;
+    background: black;
+    color: white;
+    width: 75%;
+    bottom: 0;
+    overflow: auto;
+}
+
+div.neigh-list.active {
+    right:0;
+}
+
+header.neigh-list .logo,
+header.neigh-list .sel {
+    display: none
+}
+
+header.neigh-list .list {
+    right: auto;
+    left: 10px;
+}
+
+div.park-view {
+    position: absolute;
+    left: 0;
+    top: 0;
+    background: white;
+    width: 100%;
+    height: 100%;
+}
+
+div.park-view header {
+    height: 200px;
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    background: black;
+}
+
+div.park-view header img {
+    min-width: 100%;
+    min-height: 100%;
+}
+
+div.park-view header span.name {
+    width: 50%;
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    text-transform: uppercase;
+    text-align: right;
+    margin: 0 10px 10px 0;
+    color: white;
+    font-size: 30px;
+    font-weight: 400;
+    line-height: 34px;
+}
+
+div.park-view div.body {
+    margin: 20px;
+}
+
+div.park-view button.close {
+    font-size: 45px;
+}
+
+div.park-view div.body .address {
+    color: black;
+    font-size: 20px;
+    
+}
+
+div.park-view div.body .city {
+    font-size: 18px;
+}
+
+div.selector-list .selected {
+    border: 1px solid white;
+}

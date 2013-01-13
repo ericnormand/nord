@@ -20,8 +20,10 @@
 
 (def port (Integer/parseInt (or (System/getenv "PORT") "9000")))
 (def debug (System/getenv "DEBUG"))
-(def aws-access-key (System/getenv "AWS_ACCESS_KEY_ID"))
-(def aws-secret-key (System/getenv "AWS_SECRET_KEY"))
+(def aws-access-key (or (System/getenv "AWS_ACCESS_KEY_ID")
+                        (System/getProperty "AWS_ACCESS_KEY_ID")))
+(def aws-secret-key (or (System/getenv "AWS_SECRET_KEY")
+                        (System/getProperty "AWS_SECRET_KEY")))
 
 ;; put any per-request database initalization here
 (defn db-middleware [hdlr]

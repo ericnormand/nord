@@ -23,6 +23,8 @@
                  [ring-json-params                          "0.1.3"]
                  [de.kotka/lazymap                          "3.0.0"]
                  [rotary "0.3.0"]
+                 [org.clojure/data.csv "0.1.2"]
+                 [clj-http "0.6.3"]
                  ]
 
   :source-paths ["src"]
