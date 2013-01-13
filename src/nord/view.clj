@@ -127,7 +127,7 @@
    {:attribute "bicycle"
     :title "Bicycle"
     :icon "/img/icon/bicycle.png"}
-   {:attribute "picnic"
+   {:attribute "picnic-tables"
     :title "Picnic tables"
     :icon "/img/icon/picnic.png"}
    {:attribute "all-purpose-field"
