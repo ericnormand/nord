@@ -152,7 +152,7 @@
             :icon "/img/icon/shower.png"}
            {:attribute "lighting"
             :title "Lighting"
-            :icon "/img/icon/light.png"}]))
+            :icon "/img/icon/lights.png"}]))
 
 (defn selector-list []
 
@@ -171,7 +171,7 @@
    [:ul.nav.nav-list
     [:li.filter
      [:a {:href "#"
-          :data-str "all"}
+          :data-attr "all"}
       [:div]
       [:span "All"]]]
     (for [s features]

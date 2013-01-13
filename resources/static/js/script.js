@@ -230,7 +230,7 @@
              addtomap();
              return;
            } else if(first) {
-             $('.selector-list li').removeClass(c);
+               $('.selector-list li').removeClass(c);
              el.parent().addClass(c);
              filters = {};
              filters[a] = true;
