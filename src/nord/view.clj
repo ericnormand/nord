@@ -263,7 +263,7 @@
     ]])
 
 (defn homepage [cfg]
-  (app {:title "NORD"
+  (app {:title "NOLA Parks"
         :description "Explore NOLA outdoors."}
        (comment
          [:div
