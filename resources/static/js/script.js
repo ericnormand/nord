@@ -13,7 +13,9 @@
                  var point = new google.maps.LatLng(e.latitude, e.longitude);
                  $('#map-view').gmap('addMarker', {'position': point, 
                                      'bounds': false, 
-                                     'icon' : pin});
+                                     'icon' : pin}).click(function() {
+                                         showPark(e['park-id']);
+                                     });
                }
              });
            }
