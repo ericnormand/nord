@@ -29,7 +29,7 @@
            makeNeighborhoodList();
          }});
 
-         $('#input-type').change(function() {
+    $('#input-type').change(function() {
            var el = $(this);
            var val = el.val();
            if(val === 'choices') {
