@@ -261,6 +261,7 @@
            addtomap();
            first = false;
              makeNeighborhoodList();
+             return false;
          });
 
          function makeNeighborhoodList() {
