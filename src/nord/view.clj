@@ -170,7 +170,7 @@
           
           [{:attribute "restrooms"
             :title "Restroom"
-            :icon "/img/icon/wc.png"}
+            :icon "/img/icon/restroom.png"}
            {:attribute "showers"
             :title "Showers"
             :icon "/img/icon/shower.png"}
