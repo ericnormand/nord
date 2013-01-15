@@ -187,10 +187,13 @@
          window.loadLatLong = function loadLatLong(i) {
            if(i < window.data.parks.length) {
              var e = window.data.parks[i];
-             if(e.address) {
+               console.log(e.latitude);
+               console.log(e.longitude);
+             if(e.address && !(e.latitude && e.latitude <= 30.1 && e.latitude >= 29.8) && !(e.longitude && e.longitude <= -89.8 && e.longitude >= -90.2) ) {
                console.log('processing ' + e.name);
-               console.log('searching for ' + e.address);
-               m.gmap('search', {'address' : e.address}, function(results, status) {
+                 var aa = e.address + ", New Orleans, LA";
+               console.log('searching for ' + aa);
+               m.gmap('search', {'address' : aa}, function(results, status) {
                  if(status === 'OK') {
                    console.log('found it!');
                    var r = results[0];
@@ -208,13 +211,20 @@
                             },
                             error: function() {
                               console.log('error on ' + i);
+                                loadLatLong(i+1);
                             }});
                  } else {
                    console.log("didn't get address back for " + i);
+                     loadLatLong(i+1);
                  }
                });
+             } else if(e.address) {
+                 console.log('have address and lat long for ' + e.name);
+                 loadLatLong(i+1);
+
              } else {
                console.log('could not find address for ' + e.name);
+                 loadLatLong(i+1);
              }
            }
          }
