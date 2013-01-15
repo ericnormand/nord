@@ -4,7 +4,7 @@
 
     var pin = {
         'url' : '/img/pin.png',
-        'anchor' : new google.maps.Point(10, 56),
+        'anchor' : new google.maps.Point(5, 29)
     };
 
 
