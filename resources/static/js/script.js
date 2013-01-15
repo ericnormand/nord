@@ -2,6 +2,12 @@
   window.done = false;
   window.data = null;
 
+    var pin = {
+        'url' : '/img/pin.png',
+        'anchor' : new google.maps.Point(10, 56),
+    };
+
+
   $.ajax('/location/list.json', {dataType: 'json',
          success: function(d) {
            if(window.done) {
@@ -93,10 +99,6 @@
            'url' : '/img/you_are_here.png'
          };
 
-         var pin = {
-           'url' : '/img/pin.png',
-           'anchor' : new google.maps.Point(10, 56),
-         };
 
          window.clearmap  = function() {
            $('#map-view').gmap('clear', 'markers');
