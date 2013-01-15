@@ -47,6 +47,7 @@
          });
 
          $('img.sel').click(function() {
+             console.log(this);
            var el = $('div.selector-list');
            if(el.hasClass('active')) {
              el.removeClass('active');
@@ -54,13 +55,17 @@
            } else {
              el.addClass('active');
              $('header').addClass('selector-list');
-             $('#map-view').click(function(){
-               $('#map-view').unbind('click');
-               $('img.sel').trigger('click');
-             });
            }
+             return false;
          });
 
+    $('#map-view').click(function() {
+        var el = $('div.selector-list');
+        if(el.hasClass('active')) {
+            el.removeClass('active');
+            $('header').removeClass('selector-list');
+        }
+    });
 
 
          $('img.list').click(function() {
@@ -77,6 +82,7 @@
              });
              makeNeighborhoodList();
            }
+             return false;
          });
 
     $('img.map').click(function() {
@@ -93,6 +99,7 @@
              });
              makeNeighborhoodList();
            }
+        return false;
          });
 
          var youarehere = {
