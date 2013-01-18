@@ -163,9 +163,17 @@
                template.find('.body a').attr('href', 'https://maps.google.com/?q=' + park.latitude + ',' + park.longitude);
              template.find('.name').text(park.name);
              template.find('.address').text(park.address);
-             template.find('button.close').click(function() {
-               template.remove();
-             });
+               if(park['twitter-hashtag'])
+                   template.find(".twitter").tweet({
+                       avatar_size: 32,
+                       count: 4,
+                       query: park['twitter-hashtag'],
+                       loading_text: "searching twitter...",
+                       refresh_interval: 60
+                   });
+               template.find('button.close').click(function() {
+                   template.remove();
+               });
              var t = template.find('div.attributes');
              $.each(window.attributes, function(i, e) {
                if(park[e.attribute] && park[e.attribute] !== 'none' && park[e.attribute] !== 'None') {
@@ -181,6 +189,8 @@
              console.log('could not find park with id: ' + pid);
            }
          }
+
+
          var m = $('#map-view');
          window.loadLatLong = function loadLatLong(i) {
            if(i < window.data.parks.length) {

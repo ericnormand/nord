@@ -86,6 +86,7 @@
     (include-css "/bootstrap/css/bootstrap.min.css")
     (include-css "/bootstrap/css/bootstrap-responsive.min.css")
     (include-css "http://fonts.googleapis.com/css?family=Lato:300,400,700")
+    (include-css "/css/jquery.tweet.css")
     (include-css "/css/style.css")]
 
    [:body.total
@@ -114,7 +115,7 @@
     (include-js "/js/jquery.ui.map.full.min.js")
     (include-js "/js/jquery.ui.map.services.js")
     (include-js "/js/jquery.ui.map.extensions.js")
-
+    (include-js "/js/jquery.tweet.js")
     (include-js "/bootstrap/js/bootstrap.min.js")
     (include-js "/js/script.js")
     ;; put google analytics stuff here when you're ready
@@ -260,6 +261,7 @@
      [:div.city "New Orleans, LA"]
      [:img.map_icon {:src "/img/map_icon.png"}]]
     [:div.attributes]
+    [:div.twitter]
     ]])
 
 (defn homepage [cfg]
