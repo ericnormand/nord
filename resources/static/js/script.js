@@ -123,31 +123,45 @@
            });
          };
 
-         $(function(){
-           $('#map-view').gmap({'center' : '-90,30',
-                               'navigationControl' : false,
-                               'mapTypeControl' : false,
-                               'zoomControl' : false,
-                               'streetViewControl': false,
-                               'zoom' : 12
-           }).bind('init', function(evt, map) {
-             $('#map-view').gmap('getCurrentPosition', function(position, status) {
-               if ( status === 'OK' ) {
-                 var clientPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-                 $('#map-view').gmap('addMarker', {'position': clientPosition, 
-                                     'bounds': false, 
-                                     'icon' : youarehere});
-                                     $('#map-view').gmap('get', 'map').setOptions({'center' : clientPosition,
-                                                                                  'zoom' : 14});
-                                                                                  window.done = true;
-                                                                                  if(data)
+    $(function(){
 
-                                                                                    addtomap();
-               }
-             });
-           });
-         });
-
+        $('#map-view').gmap({'center' : '29.951066,-90.071532',
+                             'navigationControl' : false,
+                             'mapTypeControl' : false,
+                             'zoomControl' : !Modernizr.touch,
+                             'streetViewControl': false,
+                             'zoom' : 14
+                            })
+            .bind('init', function(evt, map) {
+                if(Modernizr.geolocation) {
+                    $('#map-view').gmap('getCurrentPosition', function(position, status) {
+                        if ( status === 'OK' ) {
+                            var clientPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                            $('#map-view').gmap('addMarker', {'position': clientPosition, 
+                                                              'bounds': false, 
+                                                              'icon' : youarehere});
+                            $('#map-view').gmap('get', 'map').setOptions({'center' : clientPosition,
+                                                                          'zoom' : 14});
+                            window.done = true;
+                            if(data)
+                                
+                                addtomap();
+                        }
+                    });
+                } else {
+                    var clientPosition = new google.maps.LatLng(29.951066, -90.071532);
+                    $('#map-view').gmap('addMarker', {'position': clientPosition, 
+                                                      'bounds': false, 
+                                                      'icon' : youarehere});
+                    $('#map-view').gmap('get', 'map').setOptions({'center' : clientPosition,
+                                                                  'zoom' : 14});
+                    window.done = true;
+                    if(data)
+                        addtomap();
+                }
+            });
+    });
+    
          function showPark(pid) {
            var park;
            $.each(window.data.parks, function(i, e) {
