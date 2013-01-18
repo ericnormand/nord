@@ -1,3 +1,6 @@
+/* Need this for google maps controls to show up correctly */
+#map-view img{max-width: inherit;}
+
 .align-right {
   text-align: right;
 }
