@@ -19,13 +19,15 @@
             :content (:description pg)}]
     [:meta {:name "viewport" :content "width=device-width, initial-scale=1.0, user-scalable=no"}]
 
-    (cc "lt IE 9"
-        (include-js "http://html5shiv.googlecode.com/svn/trunk/html5.js"))
+    
     (include-css "http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css")
     (include-css "/bootstrap/css/bootstrap.min.css")
     (include-css "/bootstrap/css/bootstrap-responsive.min.css")
     (include-css "http://fonts.googleapis.com/css?family=Lato:300,400,700")
-    (include-css "/css/style.css")]
+    (include-css "/css/style.css")
+    (cc "lt IE 9"
+        (include-js "http://html5shiv.googlecode.com/svn/trunk/html5.js"))
+    ]
 
    [:body.home
     (cc "lt IE 7"
@@ -80,14 +82,16 @@
     [:meta {:name "viewport" :content "width=device-width, initial-scale=1.0, user-scalable=no"}]
     [:link {:rel "shortcut icon"
             :href "/img/fav.png"}]
-    (cc "lt IE 9"
-        (include-js "http://html5shiv.googlecode.com/svn/trunk/html5.js"))
+    
     (include-css "http://code.jquery.com/mobile/1.2.0/jquery.mobile-1.2.0.min.css")
     (include-css "/bootstrap/css/bootstrap.min.css")
     (include-css "/bootstrap/css/bootstrap-responsive.min.css")
     (include-css "http://fonts.googleapis.com/css?family=Lato:300,400,700")
     (include-css "/css/jquery.tweet.css")
-    (include-css "/css/style.css")]
+    (include-css "/css/style.css")
+    (cc "lt IE 9"
+        (include-js "http://html5shiv.googlecode.com/svn/trunk/html5.js"))
+    (include-js "/js/modernizr.js")]
 
    [:body.total
     (cc "lt IE 7"
