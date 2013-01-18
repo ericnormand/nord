@@ -36,17 +36,18 @@
          [:a {:href "http://browsehappy.com/"} "Upgrade to a different browser"]
          " or "
          [:a {:href "http://www.google.com/chromeframe/?redirect=true"} "install Google Chrome Frame"] " to experience this site."])
-    
-    [:header
-     [:a {:src "/"}
-      [:img.logo {:src "/img/logo.png"}]]]
-    
-    [:article.edit
-     [:div.middle
-      [:div.inner
-       rst]]]
-    
-    [:footer]
+
+    [:div.wrapper
+     [:header
+      [:a {:src "/"}
+       [:img.logo {:src "/img/logo.png"}]]]
+     
+     [:article.edit
+      [:div.middle
+       [:div.inner
+        rst]]]
+     
+     [:footer]]
     (include-js "http://maps.google.com/maps/api/js?sensor=true")
     (include-js "//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js")
     (comment (include-js "//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"))    
