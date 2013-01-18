@@ -130,6 +130,15 @@
                              'mapTypeControl' : false,
                              'zoomControl' : !Modernizr.touch,
                              'streetViewControl': false,
+                             'styles' : [
+                                 {
+                                     "featureType": "poi",
+                                     "elementType": "labels",
+                                     "stylers": [
+                                         { "visibility": "off" }
+                                     ]
+                                 }
+                             ],
                              'zoom' : 14
                             })
             .bind('init', function(evt, map) {
