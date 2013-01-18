@@ -20,7 +20,7 @@
          (rotary/scan amzn db)
          (catch Exception e
            (.printStackTrace e)
-           (amzn-list amzn db)))
+           (amzn-list amzn db (dec n))))
        (rotary/scan amzn db))))
 
 (liberator/defresource homepage
