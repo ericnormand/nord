@@ -264,6 +264,7 @@
      [:div.address]
      [:div.city "New Orleans, LA"]
      [:img.map_icon {:src "/img/map_icon.png"}]]
+    [:a.website]
     [:div.attributes]
     [:div.twitter]
     ]])

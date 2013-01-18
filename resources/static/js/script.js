@@ -63,7 +63,6 @@
         var el = $('div.selector-list, div.neigh-list');
         el.removeClass('active');
         $('header').removeClass('selector-list').removeClass('neigh-list');
-
     });
 
 
@@ -197,6 +196,8 @@
                template.find('button.close').click(function() {
                    template.remove();
                });
+               if(park.URL)
+                   template.find('a.website').attr('href', park.URL).text('Visit Website');
              var t = template.find('div.attributes');
              $.each(window.attributes, function(i, e) {
                if(park[e.attribute] && park[e.attribute] !== 'none' && park[e.attribute] !== 'None') {
