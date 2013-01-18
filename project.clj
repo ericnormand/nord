@@ -4,7 +4,7 @@
   :license {:name "Eclipse Public License"
             :url "http://www.eclipse.org/legal/epl-v10.html"}
   :dependencies [
-                 [clj-aws-s3                                "0.3.2" :exclusions [commons-codec]]
+                 ;[clj-aws-s3                                "0.3.2" :exclusions [commons-codec]]
                  [clojurewerkz/urly                         "1.0.0"]
                  [enlive                                    "1.0.1" :exclusions [org.clojure/clojure]]
                  [hiccup                                    "1.0.2"]
@@ -20,7 +20,7 @@
                  [playnice                                  "0.0.6.11" :exclusions [ring/ring-jetty-adapter commons-codec]]
                  [postgresql/postgresql                     "9.1-901.jdbc4"]
                  [ring                                      "1.1.6"]
-                 [ring-json-params                          "0.1.3"]
+                 [ring-json-params                          "0.1.3" :exclusions [org.codehaus.jackson/jackson-core-asl]]
                  [de.kotka/lazymap                          "3.0.0"]
                  [rotary "0.3.0"]
                  [org.clojure/data.csv "0.1.2"]
