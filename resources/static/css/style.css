@@ -190,7 +190,7 @@ img.sel {
 
   padding: 10px;
   width: 16px;
-  display: none;
+
 }
 
 @media all and (max-width: 480px){
@@ -368,5 +368,39 @@ div.park-view div.body .city {
 div.selector-list .selected {
   border: 1px solid white;
 }
+
+/* For the desktop */
+@media all and (min-width: 980px) {
+    #map-view { 
+        position: absolute;
+        top: 60px;
+        left: 220px;
+        right: 430px;
+        bottom: 0;
+    }
+
+    div.selector-list {
+        top: 60px;
+        left: 0px;
+        width: 200px;
+        min-width: auto;
+        box-shadow: 3px 3px 3px 2px rgba(0,0,0,.2);
+    }
+
+    div.neigh-list {
+        right: 0;
+        width: 410px;
+        padding: 10px;
+        box-shadow: -3px 3px 3px 2px rgba(0,0,0,.2);
+    }
+    
+    img.sel, img.list, img.map {
+        display: none;
+    }
+
+}
+
+
+
 Window size: x 
 Viewport size: x
