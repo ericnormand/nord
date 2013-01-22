@@ -341,7 +341,7 @@ div.park-view header span.name {
 }
 
 div.park-view div.body {
-  padding: 20px;
+    padding: 20px;
   overflow: auto;
   top: 40%;
   bottom:0;
@@ -351,16 +351,21 @@ div.park-view div.body {
 }
 
 div.park-view button.close {
-  font-size: 45px;
-  position: absolute;
-  top: 15px;
-  right: 20px;
-  color: #fff;
-  opacity: 1;
-  height: 40px;
-  padding: 5px 8px 20px 8px;
-  background: rgba(0,0,0, .5);
-  z-index: 10;
+    font-size: 45px;
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    color: #fff;
+    opacity: 1;
+    height: 40px;
+    padding: 5px 8px 20px 8px;
+
+    z-index: 1000;
+    text-shadow:
+    -1px -1px 0 #000,
+    1px -1px 0 #000,
+    -1px 1px 0 #000,
+    1px 1px 0 #000;  
 }
 
 div.park-view div.body .address {
