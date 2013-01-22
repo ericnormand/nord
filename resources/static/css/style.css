@@ -351,6 +351,7 @@ div.park-view button.close {
   height: 40px;
   padding: 5px 8px 20px 8px;
   background: rgba(0,0,0, .5);
+  z-index: 10;
 }
 
 div.park-view div.body .address {
