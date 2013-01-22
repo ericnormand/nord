@@ -256,11 +256,11 @@
 
 (defn park-view-template []
   [:div.park-view
+   [:button.close "&times;"]
    [:header
     [:img.big-img]
     [:span.name]]
    [:div.body
-    [:button.close "&times;"]
     [:a
      [:div.address]
      [:div.city "New Orleans, LA"]
