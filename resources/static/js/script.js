@@ -46,23 +46,16 @@
            $('div.extra-controls div.controls').append(newchoice);
          });
 
-         $('img.sel').click(function() {
-             console.log(this);
-           var el = $('div.selector-list');
-           if(el.hasClass('active')) {
-             el.removeClass('active');
-             $('header').removeClass('selector-list');
-           } else {
-             el.addClass('active');
-             $('header').addClass('selector-list');
-           }
-             return false;
-         });
+    $('img.sel').click(function() {
+        $('div.wrapper').toggleClass('selector-list-active');
+        return false;
+    });
 
     $('#map-view').click(function() {
         var el = $('div.selector-list, div.neigh-list');
         el.removeClass('active');
-        $('header').removeClass('selector-list').removeClass('neigh-list');
+        $('.wrapper').removeClass('selector-list-active');
+        $('header').removeClass('neigh-list');
     });
 
 
