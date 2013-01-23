@@ -136,6 +136,7 @@ mixpanel.init(\"cadf3f46a8cd9160c6ad9722440db0fc\");"]
     (include-js "/js/jquery.ui.map.extensions.js")
     (include-js "/js/jquery.tweet.js")
     (include-js "/bootstrap/js/bootstrap.min.js")
+    (include-js "/js/jquery.ba-bbq.min.js")
     (include-js "/js/script.js")
     ;; put google analytics stuff here when you're ready
     [:script "
