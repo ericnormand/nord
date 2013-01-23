@@ -337,12 +337,12 @@ div.selector-list .selected {
 }
 
 /* For the desktop */
-@media all and (min-width: 980px) {
+@media all and (min-width: 1200px) {
     #map-view { 
         position: absolute;
         top: 60px;
         left: 220px;
-        right: 430px;
+        right: 310px;
         bottom: 0;
     }
 
@@ -356,7 +356,7 @@ div.selector-list .selected {
 
     div.neigh-list {
         right: 0;
-        width: 410px;
+        width: 290px;
         padding: 10px;
         box-shadow: -3px 3px 3px 2px rgba(0,0,0,.2);
     }
@@ -387,6 +387,14 @@ div.selector-list .selected {
 
     header {
         height: 60px;
+    }
+
+    .accordion-heading a {
+        font-size: 14px;
+    }
+
+    li.park {
+        font-size: 14px;
     }
 
 }
