@@ -2,33 +2,36 @@
     window.done = false;
     window.data = null;
 
+    window.map = $('#map-view');
+
     var pin = {
         'url' : '/img/pin.png',
         'anchor' : new google.maps.Point(5, 29)
     };
 
-
-    $.ajax('/location/list.json', {dataType: 'json',
-                                   success: function(d) {
-                                       if(window.done) {
-                                           $.each(d.parks, function(i, e) {
-                                               if(e.latitude && e.longitude) {
-                                                   console.log(e.name);
-                                                   console.log(e.latitude);
-                                                   console.log(e.longitude);
-                                                   var point = new google.maps.LatLng(e.latitude, e.longitude);
-                                                   $('#map-view').gmap('addMarker', {'position': point, 
-                                                                                     'bounds': false, 
-                                                                                     'icon' : pin}).click(function() {
-                                                                                         showPark(e['park-id']);
-                                                                                     });
-                                               }
-                                           });
-                                       }
-                                       data = d;
-                                       makeNeighborhoodList();
-                                   }});
-
+    if(window.map.length > 0)
+        $.ajax('/location/list.json',
+               {dataType: 'json',
+                success: function(d) {
+                    if(window.done) {
+                        $.each(d.parks, function(i, e) {
+                            if(e.latitude && e.longitude) {
+                                var point = new google.maps.LatLng(e.latitude, e.longitude);
+                                window.map.gmap('addMarker', {'position': point, 
+                                                              'bounds': false, 
+                                                              'icon' : pin}).click(function() {
+                                                                  mixpanel.track('Show park',
+                                                                                 {'Park ID' : e['park-id'],
+                                                                                  'Action'  : 'click pin on map'});
+                                                                  showPark(e['park-id']);
+                                                              });
+                            }
+                        });
+                    }
+                    data = d;
+                    makeNeighborhoodList();
+                }});
+    
     $('#input-type').change(function() {
         var el = $(this);
         var val = el.val();
@@ -47,24 +50,45 @@
     });
 
     $('img.sel').click(function() {
-        $('div.wrapper').toggleClass('selector-list-active');
+        var wrapper = $('div.wrapper');
+        if(wrapper.hasClass('selector-list-active')) {
+            mixpanel.track('Close filter list',
+                           {'Action' : 'click button'});
+            wrapper.removeClass('selector-list-active');
+        } else {
+            mixpanel.track('Open filter list',
+                           {'Action' : 'click button'});
+            wrapper.addClass('selector-list-active');
+        }
         return false;
     });
 
-    $('#map-view').click(function() {
-        var el = $('div.selector-list, div.neigh-list');
-        el.removeClass('active');
-        $('.wrapper').removeClass('selector-list-active');
+    window.map.click(function() {
+        var el = $('div.neigh-list');
+        if(el.hasClass('active')) {
+            mixpanel.track('Close neighborhood list',
+                           {'Action' : 'click map'});
+            el.removeClass('active');
+        }
+        var wrapper = $('div.wrapper');
+        if(wrapper.hasClass('selector-list-active')) {
+            mixpanel.track('Close filter list',
+                           {'Action' : 'click map'});
+            wrapper.removeClass('selector-list-active');
+        }
         $('header').removeClass('neigh-list');
     });
-
 
     $('img.list').click(function() {
         var el = $('div.neigh-list');
         if(el.hasClass('active')) {
+            mixpanel.track('Open neighborhood list',
+                           {'Action' : 'click button'});
             el.removeClass('active');
             $('header').removeClass('neigh-list');
         } else {
+            mixpanel.track('Close neighborhood list',
+                           {'Action' : 'click button'});
             el.addClass('active');
             $('header').addClass('neigh-list');
             makeNeighborhoodList();
@@ -75,9 +99,13 @@
     $('img.map').click(function() {
         var el = $('div.neigh-list');
         if(el.hasClass('active')) {
+            mixpanel.track('Open neighborhood list',
+                           {'Action' : 'click button'});
             el.removeClass('active');
             $('header').removeClass('neigh-list');
         } else {
+            mixpanel.track('Close neighborhood list',
+                           {'Action' : 'click button'});
             el.addClass('active');
             $('header').addClass('neigh-list');
             makeNeighborhoodList();
@@ -91,7 +119,7 @@
 
 
     window.clearmap  = function() {
-        $('#map-view').gmap('clear', 'markers');
+        window.map.gmap('clear', 'markers');
     };
 
     window.addtomap = function() {
@@ -104,10 +132,13 @@
                 });
                 if(x) {
                     var point = new google.maps.LatLng(e.latitude, e.longitude);
-                    $('#map-view').gmap('addMarker', {'position': point, 
-                                                      'bounds': false, 
-                                                      'icon' : pin})
+                    window.map.gmap('addMarker', {'position': point, 
+                                                  'bounds': false, 
+                                                  'icon' : pin})
                         .click(function() {
+                            mixpanel.track('Show park',
+                                           {'Park ID' : e['park-id'],
+                                            'Action'  : 'click pin on map'});
                             showPark(e['park-id']);
                         });
                 }
@@ -115,53 +146,51 @@
         });
     };
 
-    $(function(){
 
-        $('#map-view').gmap({'center' : '29.951066,-90.071532',
-                             'navigationControl' : false,
-                             'mapTypeControl' : false,
-                             'zoomControl' : !Modernizr.touch,
-                             'streetViewControl': false,
-                             'styles' : [
-                                 {
-                                     "featureType": "poi",
-                                     "elementType": "labels",
-                                     "stylers": [
-                                         { "visibility": "off" }
-                                     ]
-                                 }
-                             ],
-                             'zoom' : 14
-                            })
-            .bind('init', function(evt, map) {
-                if(Modernizr.geolocation) {
-                    $('#map-view').gmap('getCurrentPosition', function(position, status) {
-                        if ( status === 'OK' ) {
-                            var clientPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-                            $('#map-view').gmap('addMarker', {'position': clientPosition, 
-                                                              'bounds': false, 
-                                                              'icon' : youarehere});
-                            $('#map-view').gmap('get', 'map').setOptions({'center' : clientPosition,
-                                                                          'zoom' : 14});
-                            window.done = true;
-                            if(data)
-                                
-                                addtomap();
-                        }
-                    });
-                } else {
-                    var clientPosition = new google.maps.LatLng(29.951066, -90.071532);
-                    $('#map-view').gmap('addMarker', {'position': clientPosition, 
+    window.map.gmap({'center' : '29.951066,-90.071532',
+                     'navigationControl' : false,
+                     'mapTypeControl' : false,
+                     'zoomControl' : !Modernizr.touch,
+                     'streetViewControl': false,
+                     'styles' : [
+                         {
+                             "featureType": "poi",
+                             "elementType": "labels",
+                             "stylers": [
+                                 { "visibility": "off" }
+                             ]
+                         }
+                     ],
+                     'zoom' : 14
+                    })
+        .bind('init', function(evt, map) {
+            if(Modernizr.geolocation) {
+                window.map.gmap('getCurrentPosition', function(position, status) {
+                    if ( status === 'OK' ) {
+                        var clientPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                        window.map.gmap('addMarker', {'position': clientPosition, 
                                                       'bounds': false, 
                                                       'icon' : youarehere});
-                    $('#map-view').gmap('get', 'map').setOptions({'center' : clientPosition,
+                        window.map.gmap('get', 'map').setOptions({'center' : clientPosition,
                                                                   'zoom' : 14});
-                    window.done = true;
-                    if(data)
-                        addtomap();
-                }
-            });
-    });
+                        window.done = true;
+                        if(data)
+                            
+                            addtomap();
+                    }
+                });
+            } else {
+                var clientPosition = new google.maps.LatLng(29.951066, -90.071532);
+                window.map.gmap('addMarker', {'position': clientPosition, 
+                                              'bounds': false, 
+                                              'icon' : youarehere});
+                window.map.gmap('get', 'map').setOptions({'center' : clientPosition,
+                                                          'zoom' : 14});
+                window.done = true;
+                if(data)
+                    addtomap();
+            }
+        });
     
     function showPark(pid) {
         var park;
@@ -187,6 +216,9 @@
                     refresh_interval: 60
                 });
             template.find('button.close').click(function() {
+                mixpanel.track('Hide park',
+                               {'Action' : 'click close button',
+                                'Park ID' : park['park-id']});
                 template.remove();
             });
             if(park.URL)
@@ -203,7 +235,8 @@
 
             $('body').append(template);
         } else {
-            console.log('could not find park with id: ' + pid);
+            mixpanel.track('Error: could not load park',
+                           {'Park ID' : pid});
         }
     }
 
@@ -262,6 +295,7 @@
         var a = el.attr('data-attr');
         var c = 'active';
         if(a === 'all') {
+            mixpanel.track('Select all');
             first = true;
             window.filters = null;
             $('.selector-list li').addClass(c);
@@ -269,15 +303,23 @@
             addtomap();
             return;
         } else if(first) {
+            mixpanel.track('Select amenity',
+                           {'Amenity' : a,
+                            'First' : true});
             $('.selector-list li').removeClass(c);
             el.parent().addClass(c);
             filters = {};
             filters[a] = true;
         } else {
             if(el.parent().hasClass(c)) {
+                mixpanel.track('Unselect amenity',
+                               {'Amenity' : a});
                 el.parent().removeClass(c);
                 delete filters[a];
             } else {
+                mixpanel.track('Select amenity',
+                               {'Amenity' : a,
+                                'First' : false});
                 el.parent().addClass(c);
                 filters[a] = true;
             }
@@ -345,11 +387,25 @@
     }
 
     $('.neigh-list a.name', 'body').live('click', function() {
-        showPark($(this).attr('data-park'));
+        var pid = $(this).attr('data-park');
+        mixpanel.track('Show park',
+                       {'Action' : 'click in neighborhood list',
+                        'Park ID' : pid});
+        showPark(pid);
         return false;
     });
 
-    
-
+    $('.neigh-list .accordion-heading a').live('click', function() {
+        var el = $(this);
+        var name = el.find('.name').text();
+        var item = $(el.attr('href'));
+        if(!item.hasClass('in')) {
+            mixpanel.track('Collapse neighborhood',
+                           {'Neighborhood' : name});
+        } else {
+            mixpanel.track('Expand neighborhood',
+                           {'Neighborhood' : name});
+        }
+    });
 
 }(window));
