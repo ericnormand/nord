@@ -9,7 +9,9 @@
         'anchor' : new google.maps.Point(5, 29)
     };
 
-    if(window.map.length > 0)
+    if(window.map.length > 0) {
+        mixpanel.track('Open app');
+
         $.ajax('/location/list.json',
                {dataType: 'json',
                 success: function(d) {
@@ -30,7 +32,11 @@
                     }
                     data = d;
                     makeNeighborhoodList();
-                }});
+                },
+               error: function() {
+                   mixpanel.track('Error: could not load json');
+               }});
+    }
     
     $('#input-type').change(function() {
         var el = $(this);
