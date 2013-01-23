@@ -199,32 +199,19 @@ mixpanel.init(\"cadf3f46a8cd9160c6ad9722440db0fc\");"]
             :icon "/img/icon/lights.png"}]))
 
 (defn selector-list []
-
-
-  
-
-  [:div.selector-list
-   [:div {:data-attr "all"}
-    [:span "All"]]
-   (for [s selectors]
-     [:div.selected {:data-attr (:attribute s)}
-      [:img {:src (:icon s)}]
-      [:span (:title s)]])]
-
   [:div.selector-list
    [:ul.nav.nav-list
-    [:li.filter
+    [:li.filter.active
      [:a {:href "#"
           :data-attr "all"}
       [:div]
       [:span "All"]]]
     (for [s features]
-      [:li.filter
+      [:li.filter.active
        [:a {:href "#"
             :data-attr (:attribute s)}
         [:img {:src (:icon s)}]
-        [:span (:title s)]]])]]
-  )
+        [:span (:title s)]]])]])
 
 (def neighborhoods
   ["Uptown"
