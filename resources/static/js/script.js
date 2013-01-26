@@ -499,23 +499,25 @@
             el.parent().addClass(c);
             filters = {};
             filters[a] = true;
+            first = false;
         } else {
             if(el.parent().hasClass(c)) {
                 mixpanel.track('Unselect amenity',
                                {'Amenity' : a});
                 el.parent().removeClass(c);
                 delete filters[a];
+                first = false;
             } else {
                 mixpanel.track('Select amenity',
                                {'Amenity' : a,
                                 'First' : false});
                 el.parent().addClass(c);
                 filters[a] = true;
+                first = false;
             }
         }
         clearmap();
         addtomap();
-        first = false;
         makeNeighborhoodList();
         return false;
     });
