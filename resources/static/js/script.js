@@ -1,7 +1,5 @@
 (function(window){
 
-
-
     window.filters = null;
 
     window.attributes = [
@@ -435,7 +433,6 @@
         }
     }
 
-
     var m = $('#map-view');
     window.loadLatLong = function loadLatLong(i) {
         if(i < window.parks.length) {
@@ -481,7 +478,6 @@
             }
         }
     }
-
 
     var first = true;
     $('.selector-list li a').click(function() {
