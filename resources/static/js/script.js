@@ -207,7 +207,7 @@
                                                   'bounds': false, 
                                                   'icon' : pin,
                                                   'zIndex' : 100})
-                        .click(function() {
+                        .click(function(event) {
                             $.bbq.pushState({
                                 'park-id' : e['park-id']
                             });
@@ -316,6 +316,10 @@
 
         makeNeighborhoodList();
 
+        if(Modernizr.touch) {
+            window.selscroller = new iScroll('selector-list');
+        }
+
         
     }
     
@@ -346,7 +350,6 @@
 
     window.map.click(function() {
         $.bbq.removeState('selector-list', 'neighborhood-list');
-        return false;
     });
 
     $('img.list').click(function() {
@@ -432,6 +435,8 @@
             });
 
             $('body').append(template);
+            if(Modernizr.touch)
+                window.scroller = new iScroll('park-view-wrapper');
         } else {
             mixpanel.track('Error',
                            {'Park ID' : pid,
@@ -570,6 +575,10 @@
             nl.append(x.html());
 
         });
+
+        if(Modernizer.touch)
+            window.neiscroller = new iScroll('nl');
+
     }
 
     $('.neigh-list a.name', 'body').live('click', function() {

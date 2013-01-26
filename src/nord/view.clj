@@ -138,6 +138,7 @@ mixpanel.init(\"cadf3f46a8cd9160c6ad9722440db0fc\");"]
     (include-js "/js/jquery.tweet.js")
     (include-js "/bootstrap/js/bootstrap.min.js")
     (include-js "/js/jquery.ba-bbq.min.js")
+    (include-js "/js/iscroll.js")
     (include-js "/js/script.js")
     ;; put google analytics stuff here when you're ready
     [:script "
@@ -204,19 +205,20 @@ mixpanel.init(\"cadf3f46a8cd9160c6ad9722440db0fc\");"]
             :icon "/img/icon/lights.png"}]))
 
 (defn selector-list []
-  [:div.selector-list
-   [:ul.nav.nav-list
-    [:li.filter.active
-     [:a {:href "#"
-          :data-attr "all"}
-      [:div]
-      [:span "All"]]]
-    (for [s features]
-      [:li.filter.active
-       [:a {:href "#"
-            :data-attr (:attribute s)}
-        [:img {:src (:icon s)}]
-        [:span (:title s)]]])]])
+  [:div#selector-list.selector-list
+   [:div.selector-inner
+    [:ul.nav.nav-list
+     [:li.filter.active
+      [:a {:href "#"
+           :data-attr "all"}
+       [:div]
+       [:span "All"]]]
+     (for [s features]
+       [:li.filter.active
+        [:a {:href "#"
+             :data-attr (:attribute s)}
+         [:img {:src (:icon s)}]
+         [:span (:title s)]]])]]])
 
 (def neighborhoods
   ["Algiers"
@@ -251,7 +253,7 @@ mixpanel.init(\"cadf3f46a8cd9160c6ad9722440db0fc\");"]
      [:ul.parks]]]])
 
 (defn neighborhood-list [parks]
-  [:div.neigh-list.accordion
+  [:div#nl.neigh-list.accordion
    ])
 
 (defn attribute-template []
@@ -265,21 +267,21 @@ mixpanel.init(\"cadf3f46a8cd9160c6ad9722440db0fc\");"]
    [:header
     [:img.big-img]
     [:span.name]]
-   [:div.body
-    [:a.location-block
-     [:img.map_icon.pull-left {:src "/img/map_icon.png"}]
-     [:div.address]
-     [:div.city "New Orleans, LA"]]
-    [:h3 "Hours of Operation"]
-    [:div.hoursofoperation]
-    [:a.website]
-    [:h3 "Activities"]
-    [:div.attributes]
-    [:h3 "Amenities"]
-    [:ul.subattributes]
-    [:h3 "On Twitter"]
-    [:div.twitter]
-    ]])
+   [:div#park-view-wrapper
+    [:div.body
+     [:a.location-block
+      [:img.map_icon.pull-left {:src "/img/map_icon.png"}]
+      [:div.address]
+      [:div.city "New Orleans, LA"]]
+     [:h3 "Hours of Operation"]
+     [:div.hoursofoperation]
+     [:a.website]
+     [:h3 "Activities"]
+     [:div.attributes]
+     [:h3 "Amenities"]
+     [:ul.subattributes]
+     [:h3 "On Twitter"]
+     [:div.twitter]]]])
 
 (defn homepage [cfg]
   (app {:title "NOLA Parks"

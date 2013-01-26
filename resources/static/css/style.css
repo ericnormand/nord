@@ -293,14 +293,17 @@ div.park-view header span.name {
     background: -webkit-linear-gradient(transparent, rgba(0, 0, 0, .7));
 }
 
-div.park-view div.body {
+div.park-view div#park-view-wrapper {
+    overflow: auto;
+    position:absolute;
+    top: 40%;
+    bottom: 0;
+    left: 0;
+    right: 0;
     padding: 20px;
-  overflow: auto;
-  top: 40%;
-  bottom:0;
-  position:absolute;
-  right: 0;
-  left: 0;
+}
+
+div.park-view div.body {
 }
 
 div.park-view button.close {
@@ -335,6 +338,10 @@ div.park-view a.location-block {
 
 div.park-view div.body .city {
   font-size: 18px;
+}
+
+div.park-view div.twitter {
+    padding: 0 0 100px 0;
 }
 
 div.selector-list .selected {
