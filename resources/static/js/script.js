@@ -576,7 +576,7 @@
 
         });
 
-        if(Modernizer.touch)
+        if(Modernizr.touch)
             window.neiscroller = new iScroll('nl');
 
     }
