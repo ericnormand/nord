@@ -313,8 +313,6 @@
             }
         });
 
-
-
         if(Modernizr.touch) {
             window.selscroller = new iScroll('selector-list');
             window.neiscroller = new iScroll('nl');
