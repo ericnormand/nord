@@ -491,7 +491,6 @@
             $('.selector-list li').addClass(c);
             clearmap();
             addtomap();
-            return;
         } else if(first) {
             mixpanel.track('Select amenity',
                            {'Amenity' : a,
