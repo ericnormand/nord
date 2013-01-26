@@ -292,7 +292,6 @@
         function hideNeighborhoodList() {
             mixpanel.track('Close neighborhood list');
             $('div.wrapper').removeClass('neigh-list-active');
-
         }
 
         $(window).bind('hashchange', function(e) {
@@ -314,14 +313,14 @@
             }
         });
 
-        makeNeighborhoodList();
+
 
         if(Modernizr.touch) {
             window.selscroller = new iScroll('selector-list');
             window.neiscroller = new iScroll('nl');
-       }
+        }
 
-        
+        makeNeighborhoodList();        
     }
     
     $('#input-type').change(function() {
@@ -410,6 +409,10 @@
                 query: twitter,
                 loading_text: "searching twitter...",
                 refresh_interval: 60
+            }).bind("loaded", function () {
+                setTimeout(function() {
+                    window.scroller && window.scroller.refresh();
+                }, 100);
             });
             template.find('button.close').click(function() {
                 $.bbq.removeState('park-id');
@@ -436,8 +439,13 @@
             });
 
             $('body').append(template);
+            window.scroller && window.scroller.destroy();
+            window.scroller = null;
+                
             if(Modernizr.touch)
-                window.scroller = new iScroll('park-view-wrapper');
+                setTimeout(function() {
+                    window.scroller = new iScroll('park-view-wrapper');
+                }, 100);
         } else {
             mixpanel.track('Error',
                            {'Park ID' : pid,
@@ -536,7 +544,7 @@
 
     function makeNeighborhoodList() {
         var t = $('script.neighborhood-template').html();
-        var nl = $('div.neigh-list').empty();
+        var nl = $('div.neigh-list .accordion').empty();
         $.each(neighborhoods, function(i, n) {
             var x = $(t);
 
@@ -576,8 +584,11 @@
             nl.append(x.html());
 
         });
+
         if(window.neiscroller)
-            window.neiscroller.refresh();
+            setTimeout(function() {
+                window.neiscroller.refresh();
+            }, 500);
     }
 
     $('.neigh-list a.name', 'body').live('click', function() {
@@ -598,7 +609,9 @@
                            {'Neighborhood' : name});
         }
         if(window.neiscroller)
-            window.neiscroller.refresh();
+            setTimeout(function() {
+                window.neiscroller.refresh();
+            }, 500);
     });
 
 }(window));

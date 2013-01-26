@@ -253,8 +253,9 @@ mixpanel.init(\"cadf3f46a8cd9160c6ad9722440db0fc\");"]
      [:ul.parks]]]])
 
 (defn neighborhood-list [parks]
-  [:div#nl.neigh-list.accordion
-   ])
+  [:div#nl.neigh-list
+   [:div.accordion
+    ]])
 
 (defn attribute-template []
   [:div.attribute

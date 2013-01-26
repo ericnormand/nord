@@ -27,6 +27,8 @@
   :jvm-opts ["-Xms32M" "-Xmx128M" "-server"]
   :main nord.core
   :aws {:beanstalk
-        {:environments [{:name "nord"
+        {:environments [{:name "norddev"
+                         :cname-prefix "norddev"}
+                        {:name "nord"
                          :cname-prefix "nord"}]}}
   )
