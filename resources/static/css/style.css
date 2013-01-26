@@ -328,6 +328,11 @@ div.park-view div.body .address {
   display: block;
 }
 
+div.park-view a.location-block {
+    height: 78px;
+    display: block;
+}
+
 div.park-view div.body .city {
   font-size: 18px;
 }

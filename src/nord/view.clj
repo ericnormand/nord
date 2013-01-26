@@ -85,7 +85,8 @@ mixpanel.init(\"cadf3f46a8cd9160c6ad9722440db0fc\");"]
     [:title (:title pg)]
     [:meta {:name "description"
             :content (:description pg)}]
-    [:meta {:name "viewport" :content "width=device-width, initial-scale=1.0, user-scalable=no"}]
+    [:meta {:name "viewport" :content "width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0"}]
+    [:meta {:name "apple-mobile-web-app-capable" :content "yes"}]
     [:link {:rel "shortcut icon"
             :href "/img/fav.png"}]
     
@@ -180,7 +181,7 @@ mixpanel.init(\"cadf3f46a8cd9160c6ad9722440db0fc\");"]
     :icon "/img/icon/sportsfield.png"}
    
    {:attribute "historic"
-    :title "Historic"
+    :title "Sightseeing"
     :icon "/img/icon/monument.png"}
    {:attribute "swimming-pool"
     :title "Swimming"
@@ -215,12 +216,11 @@ mixpanel.init(\"cadf3f46a8cd9160c6ad9722440db0fc\");"]
         [:span (:title s)]]])]])
 
 (def neighborhoods
-  ["Uptown"
-   "Algiers"
-   "Central Business District"
+  ["Algiers"
+   "Downtown"
    "Gentilly/New Orleans East"
    "Lakeview"
-   "Downtown"])
+   "Uptown"])
 
 (defn n-park-template []
   [:li.park
@@ -263,12 +263,18 @@ mixpanel.init(\"cadf3f46a8cd9160c6ad9722440db0fc\");"]
     [:img.big-img]
     [:span.name]]
    [:div.body
-    [:a
+    [:a.location-block
+     [:img.map_icon.pull-left {:src "/img/map_icon.png"}]
      [:div.address]
-     [:div.city "New Orleans, LA"]
-     [:img.map_icon {:src "/img/map_icon.png"}]]
+     [:div.city "New Orleans, LA"]]
+    [:h3 "Hours of Operation"]
+    [:div.hoursofoperation]
     [:a.website]
+    [:h3 "Activities"]
     [:div.attributes]
+    [:h3 "Amenities"]
+    [:ul.subattributes]
+    [:h3 "On Twitter"]
     [:div.twitter]
     ]])
 
@@ -283,11 +289,12 @@ mixpanel.init(\"cadf3f46a8cd9160c6ad9722440db0fc\");"]
           [:a {:href "/attribute/list"} "All attributes"]])
 
        [:script
-        "window.attributes = "
-        (json/generate-string selectors)
-        ";\n\n"
         "window.neighborhoods = "
         (json/generate-string neighborhoods)
+        ";\n\n"
+        "window.parks = "
+        (json/generate-string (:parks cfg))
+        ";\n\n\n"
         ]
 
        [:div#map-view]
@@ -313,7 +320,8 @@ mixpanel.init(\"cadf3f46a8cd9160c6ad9722440db0fc\");"]
          [:h2 (:name park)]]
         [:a.btn.btn-primary {:href (str "/location/" (:park-id park) "/edit")}
          "Edit"]
-        [:a {:href "/location/list"} "Complete list"]
+        [:a.btn.btn-primary {:href "/location/new"} "New"]
+        [:a.btn.btn-primary {:href "/location/list"} "List"]
         [:div
          [:div.row
           [:div.span2.align-right
@@ -335,6 +343,7 @@ mixpanel.init(\"cadf3f46a8cd9160c6ad9722440db0fc\");"]
 (defn list-parks [parks]
   (page {:title "All locations"}
         [:a.btn.btn-primary {:href "/location/new"} "New"]
+        [:a.btn.btn-primary {:href "/attribute/list"} "Attributes"]
         [:ul
          (for [park parks]
            [:li [:a {:href (str "/location/" (:park-id park))}
@@ -349,8 +358,15 @@ mixpanel.init(\"cadf3f46a8cd9160c6ad9722440db0fc\");"]
              [:input {:type "text"
                       :name (:attribute-id field)
                       :id (str "input-" (:attribute-id field))
-                      :value (park (keyword (:attribute-id field)))}
-              ]]]
+                      :value (park (keyword (:attribute-id field)))}]]]
+    "number" [:div.control-group
+              [:label.control-label {:for (str "input-" (:attribute-id field))}
+               (:label field)]
+              [:div.controls
+               [:input {:type "text"
+                        :name (:attribute-id field)
+                        :id (str "input-" (:attribute-id field))
+                        :value (park (keyword (:attribute-id field)))}]]]
     "choices" [:div.control-group
                [:label.control-label {:for (str "input-" (:attribute-id field))}
                 (:label field)]
@@ -363,24 +379,16 @@ mixpanel.init(\"cadf3f46a8cd9160c6ad9722440db0fc\");"]
                    [:option (when (= choice (park (keyword (:attribute-id field))))
                               {:selected "selected"})
                     choice])]]]
-    "image" [:div.control-group
-             [:label.control-label {:for (str "input-" (:attribute-id field))}
-              (:label field) " (url)"]
-             [:div.controls
-              [:input {:type "text"
-                       :name (:attribute-id field)
-                       :id (str "input-" (:attribute-id field))
-                       :value (park (keyword (:attribute-id field)))}]]]
     "checkbox" [:div.control-group
-                [:label.control-label]
-                [:label.checkbox
+                [:label.control-label {:for (str "input-" (:attribute-id field))}
+                 (:label field)]
+                [:div.controls
                  [:input (if (park (keyword (:attribute-id field)))
                            {:type "checkbox"
                             :name (:attribute-id field)
                             :checked "checked"}
                            {:type "checkbox"
-                            :name (:attribute-id field)})]
-                 (:label field)]]))
+                            :name (:attribute-id field)})]]]))
 
 (defn edit-park [fields park]
   (page {:title (:name park)}
@@ -399,7 +407,9 @@ mixpanel.init(\"cadf3f46a8cd9160c6ad9722440db0fc\");"]
           [:div.controls
            [:input {:type "submit"
                     :class "btn btn-primary"
-                    :value "Save"}]]]]))
+                    :value "Save"}]
+           [:a.btn.btn-danger {:href (str "/location/" (:park-id park))}
+            "Cancel"]]]]))
 
 (defn build-input [field]
   (case (:type field)
@@ -410,6 +420,14 @@ mixpanel.init(\"cadf3f46a8cd9160c6ad9722440db0fc\");"]
              [:input {:type "text"
                       :name (:name field)
                       :id (str "input" (:name field))}]]]
+    "number" [:div.control-group
+              [:label.control-label
+               {:for (str "input" (:name field))}
+               (:label field) " (number)"]
+              [:div.controls
+               [:input {:type "text"
+                        :name (:name field)
+                        :id (str "input" (:name field))}]]]
     "choices" [:div.control-group
                [:label.control-label {:for (str "input" (:name field))}
                 (:label field)]
@@ -420,18 +438,13 @@ mixpanel.init(\"cadf3f46a8cd9160c6ad9722440db0fc\");"]
                   "Unknown"]
                  (for [choice (:choices field)]
                    [:option choice])]]]
-    "image" [:div.control-group
-             [:label.control-label {:for (str "input-" (:attribute-id field))}
-              (:label field) " (url)"]
-             [:div.controls
-              [:input {:type "text"
-                       :name (:attribute-id field)
-                       :id (str "input-" (:attribute-id field))}]]]
     "checkbox" [:div.control-group
-                [:label.checkbox
+                [:label.control-label {:for (str "input" (:name field))}
+                 (:label field)]
+                [:div.controls
                  [:input {:type "checkbox"
-                          :name (:attribute-id field)}]
-                 (:label field)]]))
+                          :id (str "input" (:name field))
+                          :name (:attribute-id field)}]]]))
 
 (defn new-park [fields park]
   (page {:title "New park"}
@@ -449,7 +462,10 @@ mixpanel.init(\"cadf3f46a8cd9160c6ad9722440db0fc\");"]
           [:div.controls
            [:input {:type "submit"
                     :class "btn btn-primary"
-                    :value "Save"}]]]]))
+                    :value "Save"}]
+           [:a.btn.btn-danger {:href "/location/list"}
+            "Cancel"]
+           ]]]))
 
 (defn edit-attribute [attribute]
   (page {:title (:label attribute)}
@@ -457,17 +473,14 @@ mixpanel.init(\"cadf3f46a8cd9160c6ad9722440db0fc\");"]
          [:h2 (:label attribute)]]
         [:form.form-horizontal {:method "POST"
                                 :action (str "/attribute/" (:attribute-id attribute))}
-         [:input {:type "hidden"
-                  :name "__method"
-                  :value "PUT"}]
          [:div.control-group
           [:label.control-label {:for "input-name"}
-           "Name"]
+           "Attribute ID"]
           [:div.controls
            [:input {:type "text"
                     :id "input-name"
                     :name "attribute-id"
-                    :placeholder "Name"
+                    :placeholder "Attribute ID"
                     :value (:attribute-id attribute)}]]]
          [:div.control-group
           [:label.control-label {:for "input-label"}
@@ -480,7 +493,7 @@ mixpanel.init(\"cadf3f46a8cd9160c6ad9722440db0fc\");"]
                     :value (:label attribute)}]]]
          [:div.control-group
           [:label.control-label {:for "input-order"}
-           "Order"]
+           "Order (number)"]
           [:div.controls
            [:input {:type "text"
                     :id "input-order"
@@ -498,13 +511,16 @@ mixpanel.init(\"cadf3f46a8cd9160c6ad9722440db0fc\");"]
                         :value "text"}
                        {:value "text"})
              "Text"]
+            [:option (if (= "number" (:type attribute))
+                       {:selected "selected"
+                        :value "number"}
+                       {:value "number"})
+             "Number"]
             [:option (if (= "choices" (:type attribute))
                        {:selected "selected"
                         :value "choices"}
                        {:value "choices"})
              "Choices"]
-            [:option {:value "image"}
-             "Image"]
             [:option {:value "checkbox"}
              "Yes/No"]]]]
          
@@ -525,7 +541,9 @@ mixpanel.init(\"cadf3f46a8cd9160c6ad9722440db0fc\");"]
           [:div.controls
            [:input {:type "submit"
                     :class "btn btn-primary"
-                    :value "Save"}]]]]))
+                    :value "Save"}]
+           [:a.btn.btn-danger {:href (str "/attribute/" (:attribute-id attribute))}
+            "Cancel"]]]]))
 
 (defn new-attribute [attribute]
   (page {:title "New attribute"}
@@ -533,12 +551,12 @@ mixpanel.init(\"cadf3f46a8cd9160c6ad9722440db0fc\");"]
         [:form.form-horizontal {:method "POST"}
          [:div.control-group
           [:label.control-label {:for "input-name"}
-           "Name"]
+           "Attribute ID"]
           [:div.controls
            [:input {:type "text"
                     :id "input-name"
                     :name "attribute-id"
-                    :placeholder "Name"}]]]
+                    :placeholder "Attribute ID"}]]]
          [:div.control-group
           [:label.control-label {:for "input-label"}
            "Label"]
@@ -550,7 +568,7 @@ mixpanel.init(\"cadf3f46a8cd9160c6ad9722440db0fc\");"]
          
          [:div.control-group
           [:label.control-label {:for "input-order"}
-           "Order"]
+           "Order (number)"]
           [:div.controls
            [:input {:type "text"
                     :id "input-order"
@@ -565,10 +583,10 @@ mixpanel.init(\"cadf3f46a8cd9160c6ad9722440db0fc\");"]
             [:option {:selected "selected"
                       :value "text"}
              "Text"]
+            [:option {:value "number"}
+             "Number"]
             [:option {:value "choices"}
              "Choices"]
-            [:option {:value "image"}
-             "Image"]
             [:option {:value "checkbox"}
              "Yes/No"]]]]
          
@@ -580,7 +598,9 @@ mixpanel.init(\"cadf3f46a8cd9160c6ad9722440db0fc\");"]
           [:div.controls
            [:input {:type "submit"
                     :class "btn btn-primary"
-                    :value "Save"}]]]]
+                    :value "Save"}]
+           [:a.btn.btn-danger {:href "/attribute/list"}
+            "Cancel"]]]]
 
         [:script#choices
          [:div.control-group
@@ -601,6 +621,8 @@ mixpanel.init(\"cadf3f46a8cd9160c6ad9722440db0fc\");"]
          "Edit"]
         [:a.btn.btn-primary {:href "/attribute/new"}
          "New"]
+        [:a.btn.btn-primary {:href "/attribute/list"}
+         "List"]
         [:div
          [:div.row
           [:div.span2.align-right
@@ -629,6 +651,7 @@ mixpanel.init(\"cadf3f46a8cd9160c6ad9722440db0fc\");"]
 (defn list-attributes [attributes]
   (page {:title "All attributes"}
         [:a.btn.btn-primary {:href "/attribute/new"} "New"]
+        [:a.btn.btn-primary {:href "/location/list"} "Locations"]
         [:ul
          (for [attribute attributes]
            [:li [:a {:href (str "/attribute/" (:attribute-id attribute))}

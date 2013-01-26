@@ -1,41 +1,318 @@
 (function(window){
-    window.done = false;
-    window.data = null;
+
+
+
+    window.filters = null;
+
+    window.attributes = [
+        {'attribute' : "running",
+         'fn'        : function(park) {
+             return park['track-field'] || 
+                 park['running'];
+         },
+         'title'     : "Running",
+         'icon'      : "/img/icon/running.png"},
+        {'attribute' : "playground",
+         'title'     :  "Playground",
+         'fn'        : function(park) {
+             return park.playground;
+         },
+         'icon'      : "/img/icon/playground.png"},
+        {'attribute' : "dog-park",
+         'title'     : "Dog park",
+         'fn'        : function(park) {
+             return park['dog-park'];
+         },
+         'icon'      : "/img/icon/dogpark.png"},
+        {'attribute' : "tennis",
+         'title'     : "Tennis",
+         'fn'        : function(park) {
+             return park['tennis-courts'] && park['tennis-courts'] > 0;
+         },
+         'icon'      : "/img/icon/tennis.png"},
+        {'attribute' : "basketball",
+         'title'     : "Basketball",
+         'fn'        : function(park) {
+             return (park['indoor-basketball-courts'] && park['indoor-basketball-courts'] > 0) ||
+                 (park['outdoor-basketball-courts'] && park['outdoor-basketball-courts'] > 0) ||
+                 (park['outdoor-covered-basketball-courts'] && park['outdoor-covered-basketball-courts'] > 0);
+         },
+         'icon'      : "/img/icon/basketball.png"},
+        {'attribute' : "bicycle",
+         'title'     : "Bicycle",
+         'fn'        : function(park) {
+             return park['bicycle-path'];
+         },
+         'icon'      : "/img/icon/bicycle.png"},
+        {'attribute' : "picnic-tables",
+         'title'     : "Picnic tables",
+         'fn'        : function(park) {
+             return park['uncovered-picnic-tables'] ||
+                 park['covered-picnic-tables'];
+         },
+         'icon'      : "/img/icon/picnic.png"},
+        {'attribute' : "all-purpose-field",
+         'title'     : "Sports field",
+         'fn'        : function(park) {
+             return park['all-purpose-field'];
+         },
+         'icon'      : "/img/icon/sportsfield.png"},
+        {'attribute' : "historic",
+         'title'     : "Sightseeing",
+         'fn'        : function(park) {
+             return park['sightseeing'];
+         },
+         'icon'      : "/img/icon/monument.png"},
+        {'attribute' : "swimming-pool",
+         'title'     : "Swimming",
+         'fn'        : function(park) {
+             return park['indoor-pool'] ||
+                 park['outdoor-pool'];
+         },
+         'icon'      : "/img/icon/swimming.png"}
+    ];
+
+    window.subattributes = [
+        function(park) {
+            if(park['off-street-parking'])
+                return "Off-Street Parking";
+        },
+        function(park) {
+            if(park['recreation-center'])
+                return "Recreation Center";
+        },
+        function(park) {
+            if(park['club-house'])
+                return "Club House";
+        },
+        function(park) {
+            if(park['indoor-pool'])
+                return "Indoor Pool";
+        },
+        function(park) {
+            if(park['outdoor-pool'])
+                return "Outdoor Pool (open summer only)";
+        },
+        function(park) {
+            if(park['restroom-building'])
+                return "Restroom Building";
+        },
+        function(park) {
+            if(park['port-o-lets'])
+                return "Port-o-Lets";
+        },
+        function(park) {
+            if(park['water-fountain'])
+                return "Water Fountain";
+        },
+        function(park) {
+            if(park['showers-pool'])
+                return "Pool Showers";
+        },
+        function(park) {
+            if(park['showers-recreation-center'])
+                return "Recreation Center Showers";
+        },
+        function(park) {
+            if(park['high-mast-lighting'])
+                return "High Mast Lighting";
+        },
+        function(park) {
+            if(park['batting-cage'])
+                return "Batting Cage";
+        },
+        function(park) {
+            if(park['dug-outs'])
+                return "Dug Outs";
+        },
+        function(park) {
+            if(park['playground'])
+                return "Playground Equipment";
+        },
+        function(park) {
+            if(park['fencing'])
+                return "Fencing";
+        },
+        function(park) {
+            if(park['facility-lights'])
+                return "Facility Lights";
+        },
+        function(park) {
+            if(park['stadium'])
+                return "Stadium";
+        },
+        function(park) {
+            if(park['track-field'])
+                return "Track Field";
+        },
+        function(park) {
+            if(park['running'])
+                return "Nice for Running";
+        },
+        function(park) {
+            if(park['tennis-courts'])
+                return "Tennis Courts: " + park['tennis-courts'];
+        },
+        function(park) {
+            if(park['tennis-building'])
+                return "Tennis Building";
+        },
+        function(park) {
+            if(park['indoor-basketball-courts'])
+                return "Indoor Basketball Courts: " + park['indoor-basketball-courts'];
+        },
+        function(park) {
+            if(park['outdoor-basketball-courts'])
+                return "Outdoor Basketball Courts: " + park['outdoor-basketball-courts'];
+        },
+        function(park) {
+            if(park['outdoor-covered-basketball-courts'])
+                return "Covered Outdoor Basketball Courts: " + park['outdoor-covered-basketball-courts'];
+        },
+        function(park) {
+            if(park['all-purpose-field'])
+                return "All Purpose Field";
+        },
+        function(park) {
+            if(park['booster-club'])
+                return "Booster Club";
+        }
+    
+
+    ];
+
+    window.addtomap = function() {
+        $.each(window.parks, function(i, e) {
+            if(e.latitude && e.longitude) {
+                var x = false;
+                if(filters) {
+                    if(!e['has-sub-park'])
+                        $.each(attributes, function(o, a) {
+                            if(filters[a.attribute] && a.fn(e)) {
+                                x = true;
+                                return false;
+                            }
+                        });
+                } else {
+                    if(!e['is-sub-park'])
+                        x = true;
+                }
+                if(x) {
+                    var point = new google.maps.LatLng(e.latitude, e.longitude);
+                    window.map.gmap('addMarker', {'position': point, 
+                                                  'bounds': false, 
+                                                  'icon' : pin,
+                                                  'zIndex' : 100})
+                        .click(function() {
+                            $.bbq.pushState({
+                                'park-id' : e['park-id']
+                            });
+                            return false;
+                        });
+                }
+            }
+        });
+    };
 
     window.map = $('#map-view');
 
-    var pin = {
-        'url' : '/img/pin.png',
-        'anchor' : new google.maps.Point(5, 29)
-    };
 
     if(window.map.length > 0) {
         mixpanel.track('Open app');
 
-        $.ajax('/location/list.json',
-               {dataType: 'json',
-                success: function(d) {
-                    if(window.done) {
-                        $.each(d.parks, function(i, e) {
-                            if(e.latitude && e.longitude) {
-                                var point = new google.maps.LatLng(e.latitude, e.longitude);
-                                window.map.gmap('addMarker', {'position': point, 
-                                                              'bounds': false, 
-                                                              'icon' : pin}).click(function() {
-                                                                  mixpanel.track('Show park',
-                                                                                 {'Park ID' : e['park-id'],
-                                                                                  'Action'  : 'click pin on map'});
-                                                                  showPark(e['park-id']);
-                                                              });
-                            }
-                        });
-                    }
-                    data = d;
-                    makeNeighborhoodList();
-                },
-               error: function() {
-                   mixpanel.track('Error: could not load json');
-               }});
+        var parkid = $.bbq.getState('park-id');
+        
+        if(parkid) {
+            window.location = "#park-id=" + parkid;
+            showPark(parkid);
+        } else {
+            window.location = "#";
+        }
+        
+        var pin = {
+            'url' : '/img/pin.png',
+            'anchor' : new google.maps.Point(5, 29)
+        };
+
+        window.map.gmap({'center' : '29.951066,-90.071532',
+                         //'navigationControl' : false,
+                         'mapTypeControl' : false,
+                         //'zoomControl' : !Modernizr.touch,
+                         'streetViewControl': false,
+                         'styles' : [
+                             {
+                                 "featureType": "poi",
+                                 "elementType": "labels",
+                                 "stylers": [
+                                     { "visibility": "off" }
+                                 ]
+                             }
+                         ],
+                         'zoom' : 14
+                        })
+            .bind('init', function(evt, map) {
+                if(Modernizr.geolocation) {
+                    window.map.gmap('getCurrentPosition', function(position, status) {
+                        if ( status === 'OK' && 
+                             position.coords.latitude <= 30.1 && position.coords.latitude >= 29.8 &&
+                             position.coords.longitude <= -89.8 && position.coords.longitude >= -90.2
+                           ) {
+                            var clientPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+                            window.map.gmap('addMarker', {'position': clientPosition, 
+                                                          'bounds': false, 
+                                                          'icon' : youarehere});
+                            window.map.gmap('get', 'map').setOptions({'center' : clientPosition,
+                                                                      'zoom' : 14});
+                        }
+                    });
+                }
+                addtomap();
+        });
+
+        function showSelectorList() {
+            mixpanel.track('Open filter list');
+            $('div.wrapper').addClass('selector-list-active');
+        }
+
+        function hideSelectorList() {
+            mixpanel.track('Close filter list');
+            $('div.wrapper').removeClass('selector-list-active');
+        }
+
+        function showNeighborhoodList() {
+            mixpanel.track('Open neighborhood list');
+            makeNeighborhoodList();
+            $('div.wrapper').addClass('neigh-list-active');
+        }
+
+        function hideNeighborhoodList() {
+            mixpanel.track('Close neighborhood list');
+            $('div.wrapper').removeClass('neigh-list-active');
+
+        }
+
+        $(window).bind('hashchange', function(e) {
+            if($.bbq.getState('selector-list')) {
+                showSelectorList();
+            } else {
+                hideSelectorList();
+            }
+            if($.bbq.getState('neighborhood-list')) {
+                showNeighborhoodList();
+            } else {
+                hideNeighborhoodList();
+            }
+            var parkid = $.bbq.getState('park-id');
+            if(parkid) {
+                showPark(parkid);
+            } else {
+                hidePark();
+            }
+        });
+
+        makeNeighborhoodList();
+
+        
     }
     
     $('#input-type').change(function() {
@@ -56,66 +333,31 @@
     });
 
     $('img.sel').click(function() {
-        var wrapper = $('div.wrapper');
-        if(wrapper.hasClass('selector-list-active')) {
-            mixpanel.track('Close filter list',
-                           {'Action' : 'click button'});
-            wrapper.removeClass('selector-list-active');
-        } else {
-            mixpanel.track('Open filter list',
-                           {'Action' : 'click button'});
-            wrapper.addClass('selector-list-active');
-        }
+        if($.bbq.getState('selector-list'))
+            $.bbq.removeState('selector-list');
+        else
+            $.bbq.pushState({'selector-list' : true});
         return false;
     });
 
     window.map.click(function() {
-        var el = $('div.neigh-list');
-        if(el.hasClass('active')) {
-            mixpanel.track('Close neighborhood list',
-                           {'Action' : 'click map'});
-            el.removeClass('active');
-        }
-        var wrapper = $('div.wrapper');
-        if(wrapper.hasClass('selector-list-active')) {
-            mixpanel.track('Close filter list',
-                           {'Action' : 'click map'});
-            wrapper.removeClass('selector-list-active');
-        }
-        $('header').removeClass('neigh-list');
+        $.bbq.removeState('selector-list', 'neighborhood-list');
+        return false;
     });
 
     $('img.list').click(function() {
-        var el = $('div.neigh-list');
-        if(el.hasClass('active')) {
-            mixpanel.track('Open neighborhood list',
-                           {'Action' : 'click button'});
-            el.removeClass('active');
-            $('header').removeClass('neigh-list');
-        } else {
-            mixpanel.track('Close neighborhood list',
-                           {'Action' : 'click button'});
-            el.addClass('active');
-            $('header').addClass('neigh-list');
-            makeNeighborhoodList();
-        }
+        if($.bbq.getState('neighborhood-list'))
+            $.bbq.removeState('neighborhood-list');
+        else
+            $.bbq.pushState({'neighborhood-list' : true});
         return false;
     });
 
     $('img.map').click(function() {
-        var el = $('div.neigh-list');
-        if(el.hasClass('active')) {
-            mixpanel.track('Open neighborhood list',
-                           {'Action' : 'click button'});
-            el.removeClass('active');
-            $('header').removeClass('neigh-list');
-        } else {
-            mixpanel.track('Close neighborhood list',
-                           {'Action' : 'click button'});
-            el.addClass('active');
-            $('header').addClass('neigh-list');
-            makeNeighborhoodList();
-        }
+        if($.bbq.getState('neighborhood-list'))
+            $.bbq.removeState('neighborhood-list');
+        else
+            $.bbq.pushState({'neighborhood-list' : true});
         return false;
     });
 
@@ -128,129 +370,76 @@
         window.map.gmap('clear', 'markers');
     };
 
-    window.addtomap = function() {
-        $.each(data.parks, function(i, e) {
-            if(e.latitude && e.longitude) {
-                var x = false;
-                $.each(attributes, function(o, a) {
-                    if(!window.filters || (window.filters[a.attribute] && e[a.attribute] && e[a.attribute] !== 'none' && e[a.attribute] !== 'None'))
-                        x = true;
-                });
-                if(x) {
-                    var point = new google.maps.LatLng(e.latitude, e.longitude);
-                    window.map.gmap('addMarker', {'position': point, 
-                                                  'bounds': false, 
-                                                  'icon' : pin})
-                        .click(function() {
-                            mixpanel.track('Show park',
-                                           {'Park ID' : e['park-id'],
-                                            'Action'  : 'click pin on map'});
-                            showPark(e['park-id']);
-                        });
-                }
-            }
-        });
-    };
 
+    function hidePark() {
+        mixpanel.track('Hide park');
+        $('div.park-view').remove();
+    }
 
-    window.map.gmap({'center' : '29.951066,-90.071532',
-                     'navigationControl' : false,
-                     'mapTypeControl' : false,
-                     'zoomControl' : !Modernizr.touch,
-                     'streetViewControl': false,
-                     'styles' : [
-                         {
-                             "featureType": "poi",
-                             "elementType": "labels",
-                             "stylers": [
-                                 { "visibility": "off" }
-                             ]
-                         }
-                     ],
-                     'zoom' : 14
-                    })
-        .bind('init', function(evt, map) {
-            if(Modernizr.geolocation) {
-                window.map.gmap('getCurrentPosition', function(position, status) {
-                    if ( status === 'OK' ) {
-                        var clientPosition = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-                        window.map.gmap('addMarker', {'position': clientPosition, 
-                                                      'bounds': false, 
-                                                      'icon' : youarehere});
-                        window.map.gmap('get', 'map').setOptions({'center' : clientPosition,
-                                                                  'zoom' : 14});
-                        window.done = true;
-                        if(data)
-                            
-                            addtomap();
-                    }
-                });
-            } else {
-                var clientPosition = new google.maps.LatLng(29.951066, -90.071532);
-                window.map.gmap('addMarker', {'position': clientPosition, 
-                                              'bounds': false, 
-                                              'icon' : youarehere});
-                window.map.gmap('get', 'map').setOptions({'center' : clientPosition,
-                                                          'zoom' : 14});
-                window.done = true;
-                if(data)
-                    addtomap();
-            }
-        });
     
     function showPark(pid) {
         var park;
-        $.each(window.data.parks, function(i, e) {
+        $.each(window.parks, function(i, e) {
             if(e['park-id'] === pid) {
                 park = e;
+                return false;
             }
         });
 
         if(park) {
+            mixpanel.track('Show park',
+                           {'Park ID' : pid});
             var template = $($('.park-view-template').html());
             var at = $('.attribute-template').html();
-            template.find('img.big-img').attr('src', park['main-image']);
+            template.find('img.big-img').attr('src', park['image-url'] || '/img/defaultpark.png');
             template.find('.body a').attr('href', 'https://maps.google.com/?q=' + park.latitude + ',' + park.longitude);
             template.find('.name').text(park.name);
             template.find('.address').text(park.address);
-            if(park['twitter-hashtag'])
-                template.find(".twitter").tweet({
-                    avatar_size: 32,
-                    count: 4,
-                    query: park['twitter-hashtag'],
-                    loading_text: "searching twitter...",
-                    refresh_interval: 60
-                });
-            template.find('button.close').click(function() {
-                mixpanel.track('Hide park',
-                               {'Action' : 'click close button',
-                                'Park ID' : park['park-id']});
-                template.remove();
+            var twitter = park['twitter-search'] || '@NolaParksApp';
+            template.find(".twitter").tweet({
+                avatar_size: 32,
+                count: 4,
+                query: twitter,
+                loading_text: "searching twitter...",
+                refresh_interval: 60
             });
-            if(park.URL)
+            template.find('button.close').click(function() {
+                $.bbq.removeState('park-id');
+            });
+            if(park['hours-of-operation'])
+                template.find('.hoursofoperation').text(park['hours-of-operation']);
+            if(park.url)
                 template.find('a.website').attr('href', park.URL).text('Visit Website');
             var t = template.find('div.attributes');
             $.each(window.attributes, function(i, e) {
-                if(park[e.attribute] && park[e.attribute] !== 'none' && park[e.attribute] !== 'None') {
+                if(e.fn(park)) {
                     var g = $(at);
                     g.find('img.icon').attr('src', e.icon);
                     g.find('.txt').text(e.title);
                     t.append(g);
                 }
             });
+            var st = template.find('ul.subattributes');
+            $.each(window.subattributes, function(i, sa) {
+                var s = sa(park);
+                if(s) {
+                    st.append($('<li />').text(s));
+                }
+            });
 
             $('body').append(template);
         } else {
-            mixpanel.track('Error: could not load park',
-                           {'Park ID' : pid});
+            mixpanel.track('Error',
+                           {'Park ID' : pid,
+                            'Message' : 'could not find park'});
         }
     }
 
 
     var m = $('#map-view');
     window.loadLatLong = function loadLatLong(i) {
-        if(i < window.data.parks.length) {
-            var e = window.data.parks[i];
+        if(i < window.parks.length) {
+            var e = window.parks[i];
             console.log(e.latitude);
             console.log(e.longitude);
             if(e.address && !(e.latitude && e.latitude <= 30.1 && e.latitude >= 29.8) && !(e.longitude && e.longitude <= -89.8 && e.longitude >= -90.2) ) {
@@ -293,7 +482,6 @@
         }
     }
 
-    window.filters = null;
 
     var first = true;
     $('.selector-list li a').click(function() {
@@ -348,7 +536,7 @@
             x.find('div.accordionBody').attr('id', 'collapse' + i);
             var ps = x.find('ul.parks');
             var tp = $('.n-park-template').html();
-            $.each(window.data.parks, function(i, p) {
+            $.each(window.parks, function(i, p) {
                 if(p.neighborhood === n) {
                     var v = false;
                     $.each(attributes, function(o, a) {
@@ -367,37 +555,11 @@
             nl.append(x.html());
 
         });
-        // bind search inputs for each neighborhood
-        //
-        $('input.neigh-filter').keydown(function(){
-            var input = this;
-            window.setTimeout(function(){
-                var val = $(input).val().toLowerCase();
-                $(input).closest('.accordion-inner').find('.parks').children('.park').each(function(){
-                    if(!$(this).children('a').text().toLowerCase().match(val)){
-                        $(this).addClass('hidden');
-                    }
-                    else{
-                        $(this).removeClass('hidden');
-                    }
-                });
-            }, 5);
-        });
-        $('form.form-search button.btn').click(function(e){
-            e.preventDefault();
-            $(this).siblings('input.neigh-filter').val('');
-            $(this).siblings('input.neigh-filter').trigger('keydown');
-            return false;
-        });
-
     }
 
     $('.neigh-list a.name', 'body').live('click', function() {
         var pid = $(this).attr('data-park');
-        mixpanel.track('Show park',
-                       {'Action' : 'click in neighborhood list',
-                        'Park ID' : pid});
-        showPark(pid);
+        $.bbq.pushState({'park-id' : pid});
         return false;
     });
 
