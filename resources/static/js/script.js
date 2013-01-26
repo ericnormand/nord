@@ -67,7 +67,13 @@
              return park['indoor-pool'] ||
                  park['outdoor-pool'];
          },
-         'icon'      : "/img/icon/swimming.png"}
+         'icon'      : "/img/icon/swimming.png"},
+        {'attribute' : "super-saturday",
+         'title'     : "Super Saturday",
+         'fn'        : function(park) {
+             return park['super-saturday'];
+         },
+         'icon'      : "/img/icon/supersaturday.png"}
     ];
 
     window.subattributes = [

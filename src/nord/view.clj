@@ -185,7 +185,10 @@ mixpanel.init(\"cadf3f46a8cd9160c6ad9722440db0fc\");"]
     :icon "/img/icon/monument.png"}
    {:attribute "swimming-pool"
     :title "Swimming"
-    :icon "/img/icon/swimming.png"}])
+    :icon "/img/icon/swimming.png"}
+   {:attribute "super-saturday"
+    :title "Super Saturday"
+    :icon "/img/icon/supersaturday.png"}])
 
 (def selectors
   (concat features
