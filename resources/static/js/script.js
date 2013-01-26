@@ -532,21 +532,33 @@
             x.find('div.accordionBody').attr('id', 'collapse' + i);
             var ps = x.find('ul.parks');
             var tp = $('.n-park-template').html();
+            var c = 0;
             $.each(window.parks, function(i, p) {
                 if(p.neighborhood === n) {
                     var v = false;
-                    $.each(attributes, function(o, a) {
-                        if(!window.filters || (window.filters[a.attribute] && p[a.attribute] && p[a.attribute] !== 'none' && p[a.attribute] !== 'None'))
+                    if(filters) {
+                        if(!p['has-sub-park'])
+                            $.each(attributes, function(o, a) {
+                                if(filters[a.attribute] && a.fn(p)) {
+                                    v = true;
+                                    return false;
+                                }
+                            });
+                    } else {
+                        if(!p['is-sub-park'])
                             v = true;
-                    });
+                    }
                     if(v) {
                         var x = $(tp);
                         x.find('a.name').text(p.name)
                             .attr('data-park', p['park-id']);
                         ps.append(x);
+                        c += 1;
                     }
                 }
             });
+
+            x.find('.number').text(' (' + c + ')');
 
             nl.append(x.html());
 
