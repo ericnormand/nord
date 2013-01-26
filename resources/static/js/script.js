@@ -318,7 +318,8 @@
 
         if(Modernizr.touch) {
             window.selscroller = new iScroll('selector-list');
-        }
+            window.neiscroller = new iScroll('nl');
+       }
 
         
     }
@@ -575,10 +576,8 @@
             nl.append(x.html());
 
         });
-
-        if(Modernizr.touch)
-            window.neiscroller = new iScroll('nl');
-
+        if(window.neiscroller)
+            window.neiscroller.refresh();
     }
 
     $('.neigh-list a.name', 'body').live('click', function() {
@@ -598,6 +597,8 @@
             mixpanel.track('Expand neighborhood',
                            {'Neighborhood' : name});
         }
+        if(window.neiscroller)
+            window.neiscroller.refresh();
     });
 
 }(window));
