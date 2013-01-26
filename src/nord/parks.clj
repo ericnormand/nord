@@ -14,5 +14,6 @@
                     :park (json/gen park)}))
 
 (defn all [amzn]
-  (map #(json/parse (get % "park"))
-       (:items (dynamo/amzn-list amzn park-table))))
+  (sort-by :name
+           (map #(json/parse (get % "park"))
+                (:items (dynamo/amzn-list amzn park-table)))))
