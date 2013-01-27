@@ -396,7 +396,7 @@
                            {'Park ID' : pid});
             var template = $($('.park-view-template').html());
             var at = $('.attribute-template').html();
-            template.find('img.big-img').attr('src', park['image-url'] || '/img/defaultpark.png');
+            template.find('img.big-img').attr('src', park['image-url'] || '/img/defaultpark.jpg');
             template.find('.body a').attr('href', 'https://maps.google.com/?q=' + park.latitude + ',' + park.longitude);
             template.find('.name').text(park.name);
             template.find('.address').text(park.address);
