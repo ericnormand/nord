@@ -82,20 +82,16 @@
                 return "Off-Street Parking";
         },
         function(park) {
-            if(park['recreation-center'])
-                return "Recreation Center";
-        },
-        function(park) {
-            if(park['club-house'])
-                return "Club House";
-        },
-        function(park) {
             if(park['indoor-pool'])
                 return "Indoor Pool";
         },
         function(park) {
             if(park['outdoor-pool'])
                 return "Outdoor Pool (open summer only)";
+        },
+        function(park) {
+            if(park['showers-pool'])
+                return "Pool Showers";
         },
         function(park) {
             if(park['restroom-building'])
@@ -110,12 +106,16 @@
                 return "Water Fountain";
         },
         function(park) {
-            if(park['showers-pool'])
-                return "Pool Showers";
+            if(park['recreation-center'])
+                return "Recreation Center";
         },
         function(park) {
             if(park['showers-recreation-center'])
                 return "Recreation Center Showers";
+        },
+        function(park) {
+            if(park['club-house'])
+                return "Club House";
         },
         function(park) {
             if(park['high-mast-lighting'])
@@ -154,6 +154,14 @@
                 return "Nice for Running";
         },
         function(park) {
+            if(park['all-purpose-field'])
+                return "All Purpose Field";
+        },
+        function(park) {
+            if(park['fitness-park'])
+                return "Outdoor Fitness Park";
+        },
+        function(park) {
             if(park['tennis-courts'])
                 return "Tennis Courts: " + park['tennis-courts'];
         },
@@ -174,14 +182,9 @@
                 return "Covered Outdoor Basketball Courts: " + park['outdoor-covered-basketball-courts'];
         },
         function(park) {
-            if(park['all-purpose-field'])
-                return "All Purpose Field";
-        },
-        function(park) {
             if(park['booster-club'])
                 return "Booster Club";
         }
-    
 
     ];
 
@@ -432,7 +435,7 @@
             $.each(window.subattributes, function(i, sa) {
                 var s = sa(park);
                 if(s) {
-                    st.append($('<li />').text(s));
+                    st.append($('<li />').html(s));
                 }
             });
 
