@@ -210,17 +210,17 @@ div.neigh-list {
     font-size: 20px;
 }
 
-.wrapper.neigh-list .sel {
+.wrapper.neigh-list-active .sel {
   opacity: .5;
 }
 
-.wrapper.neigh-list .map {
+.wrapper.neigh-list-active .map {
     display: block;
 }
 
 .accordion-heading {
     padding:10px;
-    border-bottom:1px solid #a
+    border-bottom:1px solid #aaa;
     
 }
 .accordion-heading a {
@@ -243,7 +243,7 @@ li.park a {
 }
 
 
-.wrapper.neigh-list .list {
+.wrapper.neigh-list-active .list {
   display: none;
   /*right: 50%;*/
 }
