@@ -421,7 +421,7 @@
             if(park['hours-of-operation'])
                 template.find('.hoursofoperation').text(park['hours-of-operation']);
             if(park.url)
-                template.find('a.website').attr('href', park.URL).text('Visit Website');
+                template.find('a.website').attr('href', park.url).text('Visit Website');
             var t = template.find('div.attributes');
             $.each(window.attributes, function(i, e) {
                 if(e.fn(park)) {
