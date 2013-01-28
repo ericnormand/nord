@@ -95,6 +95,7 @@ mixpanel.init(\"cadf3f46a8cd9160c6ad9722440db0fc\");"]
     (include-css "/bootstrap/css/bootstrap-responsive.min.css")
     (include-css "http://fonts.googleapis.com/css?family=Lato:300,400,700")
     (include-css "/css/jquery.tweet.css")
+    (include-css "/css/add2home.css")
     (include-css "/css/style.css")
     (cc "lt IE 9"
         (include-js "http://html5shiv.googlecode.com/svn/trunk/html5.js"))
@@ -109,7 +110,7 @@ mixpanel.init(\"cadf3f46a8cd9160c6ad9722440db0fc\");"]
     "<!-- end Mixpanel -->"
 
     [:link {:rel "apple-touch-icon" :sizes "144x144" :href "http://www.nolaparks.com/nolaparks_icon.png"}]
-    [:meta {:name "apple-mobile-web-app-status-bar-style" :content "black-translucent"}]
+    [:meta {:name "apple-mobile-web-app-status-bar-style" :content "black"}]
     ]
 
    [:body.total
@@ -143,6 +144,7 @@ mixpanel.init(\"cadf3f46a8cd9160c6ad9722440db0fc\");"]
     (include-js "/bootstrap/js/bootstrap.min.js")
     (include-js "/js/jquery.ba-bbq.min.js")
     (include-js "/js/iscroll.js")
+    (include-js "/js/add2home.js")
     (include-js "/js/script.js")
     ;; put google analytics stuff here when you're ready
     [:script "
