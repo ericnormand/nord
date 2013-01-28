@@ -120,10 +120,11 @@ div.selector-list {
     left: -270px;
     background: #555;
     color: #fafafa;
-    padding: 10px;
     overflow-y: auto;
-    width: 250px;
+    width: 270px;
 }
+
+.nav-list {padding-left: 25px;margin: 0;}
 
 div.selector-list ul li a {
     color: #fafafa;
@@ -138,8 +139,9 @@ div.selector-list ul li a:hover {
 li.filter {
     min-height:20px
 }
-
-
+.nav-list > .active > a, .nav-list > .active > a:hover {
+background-color: rgb(30, 128, 16);
+}
 div.selector-list ul li img {
     max-width:25px;
     padding: 10px 20px 10px 0;
@@ -310,11 +312,11 @@ div.park-view button.close {
     font-size: 45px;
     position: absolute;
     top: 15px;
-    right: 20px;
+    left: 20px;
     color: #fff;
     opacity: 1;
-    height: 40px;
-    padding: 5px 8px 20px 8px;
+    height: 50px;
+    padding: 7px 8px 23px 9px;
 
     z-index: 1000;
     text-shadow:
@@ -322,22 +324,27 @@ div.park-view button.close {
     1px -1px 0 #000,
     -1px 1px 0 #000,
     1px 1px 0 #000;  
+    background: rgba(0,0,0,.5);
+    border: 3px solid rgba(255,255,255,1);
+    border-radius: 33px;
 }
 
-div.park-view div.body .address {
+div.park-view div.body .address, div.park-view div.body .name {
   color: black;
   font-size: 20px;
-  width: 80%;
+  width: 100%;
   display: block;
+  min-width: 400px;
 }
 
 div.park-view a.location-block {
-    height: 78px;
+    height: 58px;
     display: block;
 }
 
 div.park-view div.body .city {
   font-size: 18px;
+  padding: 5px 0 0;
 }
 
 /* This is needed because scolling does not go all the way down */
@@ -362,7 +369,7 @@ div.selector-list .selected {
     div.selector-list {
         top: 60px;
         left: 0px;
-        width: 200px;
+        width: 220px;
         min-width: auto;
         box-shadow: 3px 3px 3px 2px rgba(0,0,0,.2);
     }
@@ -411,3 +418,13 @@ div.selector-list .selected {
     }
 
 }
+.attributes {}
+.attribute .icon {height: 24px;padding: 7px;margin: 5px 10px 7px 0;background:green;border-radius: 19px;border-width: 1px;}
+.map_icon {width: 44px;margin: 0 14px 0 0;}
+.attribute .txt {font-size:20px;color: #555;}
+
+.tweet_list {background: rgb(223, 243, 223);border-radius: 0;}
+.tweet_list .tweet_even {background: rgb(193, 238, 193);}
+.tweet_list a {color:#fff;}
+.tweet_list .tweet_time {font-size:smaller;font-style:italic;padding-right:20px}
+.tweet_list .tweet_time a {color:#888}
