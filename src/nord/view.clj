@@ -420,36 +420,36 @@ mixpanel.init(\"cadf3f46a8cd9160c6ad9722440db0fc\");"]
 (defn build-input [field]
   (case (:type field)
     "text" [:div.control-group
-            [:label.control-label {:for (str "input" (:name field))}
+            [:label.control-label {:for (str "input" (:attribute-id field))}
              (:label field)]
             [:div.controls
              [:input {:type "text"
-                      :name (:name field)
-                      :id (str "input" (:name field))}]]]
+                      :name (:attribute-id field)
+                      :id (str "input" (:attribute-id field))}]]]
     "number" [:div.control-group
               [:label.control-label
-               {:for (str "input" (:name field))}
+               {:for (str "input" (:attribute-id field))}
                (:label field) " (number)"]
               [:div.controls
                [:input {:type "text"
-                        :name (:name field)
-                        :id (str "input" (:name field))}]]]
+                        :name (:attribute-id field)
+                        :id (str "input" (:attribute-id field))}]]]
     "choices" [:div.control-group
-               [:label.control-label {:for (str "input" (:name field))}
+               [:label.control-label {:for (str "input" (:attribute-id field))}
                 (:label field)]
                [:div.controls
-                [:select {:name (:name field)
-                          :id (str "input" (:name field))}
+                [:select {:name (:attribute-id field)
+                          :id (str "input" (:attribute-id field))}
                  [:option {:value ""}
                   "Unknown"]
                  (for [choice (:choices field)]
                    [:option choice])]]]
     "checkbox" [:div.control-group
-                [:label.control-label {:for (str "input" (:name field))}
+                [:label.control-label {:for (str "input" (:attribute-id field))}
                  (:label field)]
                 [:div.controls
                  [:input {:type "checkbox"
-                          :id (str "input" (:name field))
+                          :id (str "input" (:attribute-id field))
                           :name (:attribute-id field)}]]]))
 
 (defn new-park [fields park]

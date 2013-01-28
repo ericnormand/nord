@@ -71,11 +71,9 @@
   :available-media-types ["text/html"]
   :available-charsets ["utf-8"]
   :post! (fn [{:keys [request]}]
-           (when-not (parks/fetch (:amzn request)
-                                  (:park-id (:params request)))
-             (parks/store (:amzn request)
-                          (transform-types (attr/all (:amzn request))
-                                           (:params request)))))
+           (parks/store (:amzn request)
+                        (transform-types (attr/all (:amzn request))
+                                         (:params request))))
   :post-redirect? true
   :see-other (fn [{:keys [request]}]
                {:headers {"Location" (str "/location/" (:park-id (:params request)))}
