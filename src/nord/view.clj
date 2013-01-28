@@ -106,7 +106,10 @@ mixpanel.init(\"cadf3f46a8cd9160c6ad9722440db0fc\");"]
 typeof d?c=b[d]=[]:d=\"mixpanel\";c.people=c.people||[];c.toString=function(b){var a=\"mixpanel\";\"mixpanel\"!==d&&(a+=\".\"+d);b||(a+=\" (stub)\");return a};c.people.toString=function(){return c.toString(1)+\".people (stub)\"};i=\"disable track track_pageview track_links track_forms register register_once alias unregister identify name_tag set_config people.set people.increment people.append people.track_charge people.clear_charges people.delete_user\".split(\" \");for(g=0;g<i.length;g++)f(c,i[g]);b._i.push([a,
 e,d])};b.__SV=1.2}})(document,window.mixpanel||[]);
 mixpanel.init(\"cadf3f46a8cd9160c6ad9722440db0fc\");"]
-    "<!-- end Mixpanel -->"]
+    "<!-- end Mixpanel -->"
+
+    [:link {:rel "apple-touch-icon" :sizes "144x144" :href "/nolaparks_icon.png"}]
+    ]
 
    [:body.total
     (cc "lt IE 7"
