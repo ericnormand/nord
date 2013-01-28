@@ -108,7 +108,8 @@ e,d])};b.__SV=1.2}})(document,window.mixpanel||[]);
 mixpanel.init(\"cadf3f46a8cd9160c6ad9722440db0fc\");"]
     "<!-- end Mixpanel -->"
 
-    [:link {:rel "apple-touch-icon" :sizes "144x144" :href "/nolaparks_icon.png"}]
+    [:link {:rel "apple-touch-icon" :sizes "144x144" :href "http://www.nolaparks.com/nolaparks_icon.png"}]
+    [:meta {:name "apple-mobile-web-app-status-bar-style" :content "black-translucent"}]
     ]
 
    [:body.total
@@ -214,7 +215,7 @@ mixpanel.init(\"cadf3f46a8cd9160c6ad9722440db0fc\");"]
      [:li.filter.active
       [:a {:href "#"
            :data-attr "all"}
-       [:div]
+       [:img {:src "/img/icon/viewall.png"}]
        [:span "All"]]]
      (for [s features]
        [:li.filter.active
