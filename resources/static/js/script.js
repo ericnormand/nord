@@ -402,7 +402,7 @@
             template.find('img.big-img').attr('src', park['image-url'] || '/img/defaultpark.jpg');
             template.find('.body a').attr('href', 'https://maps.google.com/?q=' + park.latitude + ',' + park.longitude);
             template.find('.name').text(park.name);
-            template.find('.address').text(park.address);
+            template.find('.address').text(park.address + ", New Orleans, LA");
             var twitter = park['twitter-search'] || '@NolaParksApp';
             template.find(".twitter").tweet({
                 avatar_size: 32,
@@ -411,6 +411,7 @@
                 loading_text: "searching twitter...",
                 refresh_interval: 60
             }).bind("loaded", function () {
+                $(this).find("a").attr("target","_blank");
                 setTimeout(function() {
                     window.scroller && window.scroller.refresh();
                 }, 100);
@@ -419,25 +420,35 @@
                 $.bbq.removeState('park-id');
             });
             if(park['hours-of-operation'])
-                template.find('.hoursofoperation').text(park['hours-of-operation']);
+                template.find('div.hoursofoperation').text(park['hours-of-operation']);
+            else
+                template.find('h3.hoursofoperation').remove();
             if(park.url)
                 template.find('a.website').attr('href', park.url).text('Visit Website');
             var t = template.find('div.attributes');
+            var c = 0;
             $.each(window.attributes, function(i, e) {
                 if(e.fn(park)) {
                     var g = $(at);
                     g.find('img.icon').attr('src', e.icon);
                     g.find('.txt').text(e.title);
                     t.append(g);
+                    c++;
                 }
             });
+            if(c === 0)
+                template.find('h3.attributes').remove();
             var st = template.find('ul.subattributes');
+            c = 0;
             $.each(window.subattributes, function(i, sa) {
                 var s = sa(park);
                 if(s) {
                     st.append($('<li />').html(s));
+                    c++;
                 }
             });
+            if(c === 0)
+                template.find('h3.subattributes').remove();
 
             $('body').append(template);
             window.scroller && window.scroller.destroy();

@@ -276,16 +276,16 @@ mixpanel.init(\"cadf3f46a8cd9160c6ad9722440db0fc\");"]
     [:span.name]]
    [:div#park-view-wrapper
     [:div.body
-     [:a.location-block
+     [:a.location-block {:targer "_blank"}
       [:img.map_icon.pull-left {:src "/img/map_icon.png"}]
-      [:div.address]
-      [:div.city "New Orleans, LA"]]
-     [:h3 "Hours of Operation"]
+      [:div.name]
+      [:div.address]]
+     [:h3.hoursofoperation "Hours of Operation"]
      [:div.hoursofoperation]
-     [:a.website]
-     [:h3 "Activities"]
+     [:a.website {:targer "_blank"}]
+     [:h3.attributes "Activities"]
      [:div.attributes]
-     [:h3 "Amenities"]
+     [:h3.subattributes "Amenities"]
      [:ul.subattributes]
      [:h3 "On Twitter"]
      [:div.twitter]]]])
