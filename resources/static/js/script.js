@@ -78,6 +78,10 @@
 
     window.subattributes = [
         function(park) {
+            if(park['golf-course'])
+                return "Golf Course";
+        },
+        function(park) {
             if(park['off-street-parking'])
                 return "Off-Street Parking";
         },
