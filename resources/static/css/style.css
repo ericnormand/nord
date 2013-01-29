@@ -453,3 +453,91 @@ div.selector-list .about {
 .tweet_list a {color:#fff;}
 .tweet_list .tweet_time {font-size:smaller;font-style:italic;padding-right:20px}
 .tweet_list .tweet_time a {color:#888}
+
+/* ----- About Page ----- */
+
+.about .logo {margin: 0;position: absolute;
+top: 6px;
+left:50%;
+height:40px;
+margin-left: -100px;
+}
+
+article.about {
+	padding: 25px;
+}
+
+
+article.about h2 {
+	margin:0 0 10px;
+	font-family: lato;
+	font-weight: 300;
+	font-size: 40px;
+}
+
+.about p {
+	font-family: lato;
+	font-size: 14px;
+	line-height: 22px;
+}
+
+.aboutNolaParks p {
+	font-size: 22px;
+	line-height: 32px;
+	font-style:italic;
+	padding-bottom: 16px;
+	font-weight: 300;
+}
+p.contactUs {
+	font-size: 18px;
+	padding-bottom: 25px;
+}
+.about .person {
+	-moz-box-shadow: 0 1px 7px rgba(58, 58, 58, 0.46);
+	-webkit-box-shadow: 0 1px 7px rgba(58, 58, 58, 0.46);
+	box-shadow: 0 1px 7px rgba(58, 58, 58, 0.46);
+	opacity: 1;
+	padding: 15px 25px;
+	margin: 0px -25px 15px -25px;
+}
+
+.about .person .name {
+	font-size: 22px;
+	line-height: 28px;
+	text-transform:uppercase;
+	float: left;
+	display: inline-block;
+	padding-right: 10px;
+}
+.about .person .job {
+	float: left;
+	display: inline-block;
+	margin: 5px 0;
+	color: #444;
+	font-style: italic;
+}
+.about .person .bio {
+	clear:  both;
+}
+
+/* For the desktop */
+@media all and (min-width: 900px) {
+	
+	.about {
+		width: 100%; ;
+		margin
+	}
+	
+	.about .logo {
+		top: 13px;	
+	}
+
+	.about .person {
+		width: 750px;
+		margin: 25px auto;
+	}
+	.aboutNolaParks {
+		width: 800px;
+		margin: auto ;
+	}
+}
