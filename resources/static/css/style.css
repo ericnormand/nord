@@ -70,6 +70,18 @@ header {
   overflow: hidden;
 }
 
+body.about {
+    
+}
+
+header.about {
+    position: static;
+}
+
+article.about {
+    
+}
+
 .wrapper.selector-list-active {
     width: 100%;
     position: absolute;
@@ -293,6 +305,12 @@ div.park-view header span.name {
     font-weight: 400;
     line-height: 34px;  
     background: -webkit-linear-gradient(transparent, rgba(0, 0, 0, .7));
+    text-shadow:
+    -1px -1px 0 #333,
+    1px -1px 0 #333,
+    -1px 1px 0 #333,
+    1px 1px 0 #333;  
+
 }
 
 div.park-view div#park-view-wrapper {
@@ -354,6 +372,13 @@ div.park-view div.twitter {
 
 div.selector-list .selected {
   border: 1px solid white;
+}
+
+div.selector-list .about {
+    text-align:right;
+    position:absolute;
+    bottom: 0;
+    right: 0;
 }
 
 /* For the desktop */
@@ -420,7 +445,7 @@ div.selector-list .selected {
 }
 .attributes {}
 .attribute .icon {height: 24px;padding: 7px;margin: 5px 10px 7px 0;background:green;border-radius: 19px;border-width: 1px;}
-.map_icon {width: 44px;margin: 0 14px 0 0;}
+.map_icon {width:66px;margin: 0 14px 0 0;}
 .attribute .txt {font-size:20px;color: #555;}
 
 .tweet_list {background: rgb(223, 243, 223);border-radius: 0;}

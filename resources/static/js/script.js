@@ -69,7 +69,7 @@
          },
          'icon'      : "/img/icon/swimming.png"},
         {'attribute' : "super-saturday",
-         'title'     : "Super Saturday",
+         'title'     : '<a href="http://www.neworleanssuperbowl.com/events/supersaturday.php" target="_blank">Super Saturday of Service</a>',
          'fn'        : function(park) {
              return park['super-saturday'];
          },
@@ -136,6 +136,10 @@
         function(park) {
             if(park['fencing'])
                 return "Fencing";
+        },
+        function(park) {
+            if(park['bleachers'])
+                return 'Bleachers';
         },
         function(park) {
             if(park['facility-lights'])
@@ -399,10 +403,10 @@
                            {'Park ID' : pid});
             var template = $($('.park-view-template').html());
             var at = $('.attribute-template').html();
-            template.find('img.big-img').attr('src', park['image-url'] || '/img/defaultpark.jpg');
+            template.find('img.big-img').attr('src', park['image-url'] || 'https://dl.dropbox.com/s/iy8a1j8dqn79n9e/City%20Park%207.jpg?dl=1');
             template.find('.body a').attr('href', 'https://maps.google.com/?q=' + park.latitude + ',' + park.longitude);
             template.find('.name').text(park.name);
-            template.find('.address').text(park.address + ", New Orleans, LA");
+            template.find('.address').html(park.address + "<br /> New Orleans, LA");
             var twitter = park['twitter-search'] || '@NolaParksApp';
             template.find(".twitter").tweet({
                 avatar_size: 32,
@@ -431,7 +435,7 @@
                 if(e.fn(park)) {
                     var g = $(at);
                     g.find('img.icon').attr('src', e.icon);
-                    g.find('.txt').text(e.title);
+                    g.find('.txt').html(e.title);
                     t.append(g);
                     c++;
                 }

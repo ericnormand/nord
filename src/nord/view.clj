@@ -84,7 +84,7 @@ mixpanel.init(\"cadf3f46a8cd9160c6ad9722440db0fc\");"]
     [:meta {:http-equiv "X-UA-Compatible" :content "IE=edge,chrome=1"}]
     [:title (:title pg)]
     [:meta {:name "description"
-            :content (:description pg)}]
+            :content "Your guide to Parks and Recreation centers in New Orleans, Louisiana."}]
     [:meta {:name "viewport" :content "width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0"}]
     [:meta {:name "apple-mobile-web-app-capable" :content "yes"}]
     [:link {:rel "shortcut icon"
@@ -224,7 +224,10 @@ mixpanel.init(\"cadf3f46a8cd9160c6ad9722440db0fc\");"]
         [:a {:href "#"
              :data-attr (:attribute s)}
          [:img {:src (:icon s)}]
-         [:span (:title s)]]])]]])
+         [:span (:title s)]]])]
+    [:div.about
+     [:a {:href "/about.html"}
+      "About"]]]])
 
 (def neighborhoods
   ["Algiers"
