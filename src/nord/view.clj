@@ -279,7 +279,7 @@ mixpanel.init(\"cadf3f46a8cd9160c6ad9722440db0fc\");"]
     [:span.name]]
    [:div#park-view-wrapper
     [:div.body
-     [:a.location-block {:targer "_blank"}
+     [:a.location-block {:target "_blank"}
       [:img.map_icon.pull-left {:src "/img/map_icon.png"}]
       [:div.name]
       [:div.address]]
