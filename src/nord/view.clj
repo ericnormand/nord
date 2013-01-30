@@ -87,6 +87,16 @@ mixpanel.init(\"cadf3f46a8cd9160c6ad9722440db0fc\");"]
             :content "Your guide to Parks and Recreation centers in New Orleans, Louisiana."}]
     [:meta {:name "viewport" :content "width=device-width, initial-scale=1.0, user-scalable=no, maximum-scale=1.0"}]
     [:meta {:name "apple-mobile-web-app-capable" :content "yes"}]
+    
+    [:meta {:property "og:title"
+            :content "Nola Parks - Explore New Orleans Outdoors"}]
+    [:meta {:property "og:description"
+            :content "NolaParks.com is your guide to outdoor and sports activities in New Orleans. Easily find parks, recreation centers, and other outdoor spaces all from your phone. Go explore New Orleans outdoors!"}]
+    [:meta {:property "og:url"
+            :content "http://nolaparks.com"}]
+    [:meta {:property "og:image"
+            :content "https://dl.dropbox.com/s/r3t3a5go03u2e35/Square-Logo.png"}]
+    
     [:link {:rel "shortcut icon"
             :href "/img/fav.png"}]
     
@@ -224,10 +234,11 @@ mixpanel.init(\"cadf3f46a8cd9160c6ad9722440db0fc\");"]
         [:a {:href "#"
              :data-attr (:attribute s)}
          [:img {:src (:icon s)}]
-         [:span (:title s)]]])]
+         [:span (:title s)]]])]]
+   
     [:div.about
      [:a {:href "/about.html"}
-      "About"]]]])
+      "About"]]])
 
 (def neighborhoods
   ["Algiers"
