@@ -542,6 +542,6 @@ p.contactUs {
 	}
 }
 
-div.selector-list .about {position: absolute;    bottom: 0;    left: 0;    width: 270px;}
-.selector-inner .about a {display:block;padding: 5px;background: rgb(109, 109, 109);margin: auto;text-align: center;font-size: 17px;text-transform: uppercase;color: rgb(146, 146, 146);}
-.selector-inner .about a:hover {background-color:#454545;} 
+div.selector-list .about {position: absolute;    bottom: 0;    left: 0;    width: 100%}
+.selector-list .about a {display:block;padding: 5px;background: rgb(109, 109, 109);margin: auto;font-size: 17px;text-transform: uppercase;color: rgb(146, 146, 146); padding-right: 32px;}
+.selector-list .about a:hover {background-color:#454545;} 
