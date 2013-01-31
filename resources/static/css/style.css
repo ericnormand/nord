@@ -133,7 +133,9 @@ div.selector-list {
     background: #555;
     color: #fafafa;
     overflow-y: auto;
+    overflow-x: hidden;
     width: 270px;
+    
 }
 
 .nav-list {padding-left: 25px;margin: 0;}
@@ -482,7 +484,7 @@ p.contactUs {
 
 .selector-list .about a {
     display:block;
-    padding: 15px 60px 15px 30px;
+    padding: 15px 75px 15px 30px;
     background: rgb(109, 109, 109);
     font-size: 17px;
     text-transform: uppercase;

@@ -325,8 +325,12 @@
         });
 
         if(Modernizr.touch) {
-            window.selscroller = new iScroll('selector-list');
-            window.neiscroller = new iScroll('nl');
+            $(function() {
+                setTimeout(function() {
+                    window.selscroller = new iScroll('selector-list');
+                    window.neiscroller = new iScroll('nl');
+                }, 200);
+            });
         }
 
         makeNeighborhoodList();        
