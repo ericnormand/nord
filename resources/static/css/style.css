@@ -374,75 +374,8 @@ div.selector-list .selected {
   border: 1px solid white;
 }
 
-div.selector-list .about {
-    text-align:right;
-    position:absolute;
-    bottom: 0;
-    right: 0;
-}
 
-/* For the desktop */
-@media all and (min-width: 1200px) {
-    #map-view { 
-        position: absolute;
-        top: 60px;
-        left: 220px;
-        right: 310px;
-        bottom: 0;
-    }
 
-    div.selector-list {
-        top: 60px;
-        left: 0px;
-        width: 220px;
-        min-width: auto;
-        box-shadow: 3px 3px 3px 2px rgba(0,0,0,.2);
-    }
-
-    div.neigh-list {
-        right: 0;
-        width: 290px;
-        padding: 10px;
-        box-shadow: -3px 3px 3px 2px rgba(0,0,0,.2);
-    }
-    
-    img.sel, img.list, img.map {
-        display: none;
-    }
-
-    div.logo {
-        width: 240px;
-        height: 50px;
-        margin: -12px 0 0 -75px;
-        background-size: 60%;
-    }
-
-    .wrapper.selector-list-active {
-        width: auto;
-        position: static;
-    }
-
-    .wrapper.neigh-list-active div.neigh-list {
-        width: 100%;
-        padding: 0;
-        top: 50px;
-        text-transform: uppercase;
-        font-size: 20px;
-    }
-
-    header {
-        height: 60px;
-    }
-
-    .accordion-heading a {
-        font-size: 14px;
-    }
-
-    li.park {
-        font-size: 14px;
-    }
-
-}
 .attributes {}
 .attribute .icon {height: 24px;padding: 7px;margin: 5px 10px 7px 0;background:green;border-radius: 19px;border-width: 1px;}
 .map_icon {width:66px;margin: 0 14px 0 0;}
@@ -542,6 +475,99 @@ p.contactUs {
 	}
 }
 
-div.selector-list .about {position: absolute;    bottom: 0;    left: 0;    width: 100%}
-.selector-list .about a {display:block;padding: 5px;background: rgb(109, 109, 109);margin: auto;font-size: 17px;text-transform: uppercase;color: rgb(146, 146, 146); padding-right: 32px;}
-.selector-list .about a:hover {background-color:#454545;} 
+.selector-list .about {
+
+}
+
+
+.selector-list .about a {
+    display:block;
+    padding: 15px 60px 15px 30px;
+    background: rgb(109, 109, 109);
+    font-size: 17px;
+    text-transform: uppercase;
+    color: rgb(146, 146, 146); 
+    text-shadow: none;
+    text-align:right;
+    width: 180px;
+    margin: 0 -15px;
+}
+.selector-list .about a:hover {
+    background-color:#454545;
+} 
+
+/* For the desktop */
+@media all and (min-width: 1200px) {
+    #map-view { 
+        position: absolute;
+        top: 60px;
+        left: 220px;
+        right: 310px;
+        bottom: 0;
+    }
+
+    div.selector-list {
+        top: 60px;
+        left: 0px;
+        width: 220px;
+        min-width: auto;
+        box-shadow: 3px 3px 3px 2px rgba(0,0,0,.2);
+    }
+
+    div.neigh-list {
+        right: 0;
+        width: 290px;
+        padding: 10px;
+        box-shadow: -3px 3px 3px 2px rgba(0,0,0,.2);
+    }
+    
+    img.sel, img.list, img.map {
+        display: none;
+    }
+
+    div.logo {
+        width: 240px;
+        height: 50px;
+        margin: -12px 0 0 -75px;
+        background-size: 60%;
+    }
+
+    .wrapper.selector-list-active {
+        width: auto;
+        position: static;
+    }
+
+    .wrapper.neigh-list-active div.neigh-list {
+        width: 100%;
+        padding: 0;
+        top: 50px;
+        text-transform: uppercase;
+        font-size: 20px;
+    }
+
+    header {
+        height: 60px;
+    }
+
+    .accordion-heading a {
+        font-size: 14px;
+    }
+
+    li.park {
+        font-size: 14px;
+    }
+
+.selector-list .about a {
+    display:block;
+    padding: 15px 30px 15px 0;
+    background: rgb(109, 109, 109);
+    font-size: 17px;
+    text-transform: uppercase;
+    color: rgb(146, 146, 146); 
+    text-shadow: none;
+    text-align:right;
+    width: 180px;
+    margin: 0 0 0 10px;
+}
+
+}

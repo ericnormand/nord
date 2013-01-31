@@ -93,7 +93,7 @@ mixpanel.init(\"cadf3f46a8cd9160c6ad9722440db0fc\");"]
     [:meta {:property "og:description"
             :content "NolaParks.com is your guide to outdoor and sports activities in New Orleans. Easily find parks, recreation centers, and other outdoor spaces all from your phone. Go explore New Orleans outdoors!"}]
     [:meta {:property "og:url"
-            :content "http://nolaparks.com"}]
+            :content "http://www.nolaparks.com/"}]
     [:meta {:property "og:image"
             :content "https://dl.dropbox.com/s/r3t3a5go03u2e35/Square-Logo.png"}]
     
@@ -234,11 +234,14 @@ mixpanel.init(\"cadf3f46a8cd9160c6ad9722440db0fc\");"]
         [:a {:href "#"
              :data-attr (:attribute s)}
          [:img {:src (:icon s)}]
-         [:span (:title s)]]])]]
-   
+         [:span (:title s)]]])]
+    
     [:div.about
      [:a {:href "/about.html"}
-      "About"]]])
+      "About"]]
+     ]
+   
+   ])
 
 (def neighborhoods
   ["Algiers"
