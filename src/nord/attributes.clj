@@ -1,22 +1,54 @@
 (ns nord.attributes
-  (:require [nord.dynamo            :as dynamo])
-  (:require [nord.json              :as json]))
+  (:require
+   [clojure.java.jdbc :as db])
+  (:require
+   [nord.json :as json]))
 
 (def attr-table "NOLAParks-attributes")
 
-(defn fetch [amzn id]
+(defn fetch [db id]
   (json/parse
-   (get (dynamo/amzn-get amzn attr-table id) "attribute")))
+   (db/query
+    db
+    ["SELECT attribute
+      FROM attributes
+      WHERE id = ?"
+     id]
+    :row-fn :attribute
+    :result-set-fn first)))
 
-(defn store [amzn attr]
-  (dynamo/amzn-set amzn attr-table
-                   {:attribute-id (get attr :attribute-id)
-                    :attribute (json/gen attr)}))
+(defn store [db attr]
+  (db/with-db-transaction [db db]
+    (let [r (db/execute!
+             db
+             ["UPDATE attributes
+               SET attribute = ?
+               WHERE id = ?"
+              (:attribute-id attr)
+              (json/gen attr)])]
+      (if (= [1] r)
+        true
+        (= [1]
+           (db/execute!
+            db
+            ["INSERT INTO attributes (id, attribute)
+              SELECT ?, ?
+              WHERE NOT EXISTS (SELECT 1 FROM attributes WHERE id = ?)"
+             (:attribute-id attr) (json/gen attr)
+             (:attribute-id attr)]))))))
 
-(defn all [amzn]
-  (sort-by :order
-           (map #(json/parse (get % "attribute"))
-                (:items (dynamo/amzn-list amzn attr-table)))))
+(defn all [db]
+  (sort-by :label
+           (map json/parse
+                (db/query
+                 db
+                 ["SELECT attribute
+                   FROM attributes"]
+                 :row-fn :attribute))))
 
-(defn delete [amzn id]
-  (dynamo/amzn-delete amzn attr-table id))
+(defn delete [db id]
+  (= [1] (db/execute!
+          db
+          ["DELETE FROM attributes
+            WHERE id = ?"
+           id])))

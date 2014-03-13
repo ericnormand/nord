@@ -6,7 +6,7 @@
   (:require [nord.attributes :as attrs])
   (:require [clojure.walk :as walk]))
 
-(defonce xx (csv/read-csv (io/reader "/home/eric/Downloads/nordc-import1.csv")))
+(defonce xx (comment (csv/read-csv (io/reader "/home/eric/Downloads/nordc-import1.csv"))))
 
 (def header (first xx))
 (def data (rest xx))

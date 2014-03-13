@@ -1,19 +1,45 @@
 (ns nord.parks
-  (:require [nord.dynamo            :as dynamo])
-  (:require [nord.json              :as json]))
+  (:require
+   [clojure.java.jdbc :as db])
+  (:require
+   [nord.json :as json]))
 
-(def park-table "NOLAParks-parks")
-
-(defn fetch [amzn id]
+(defn fetch [db id]
   (json/parse
-   (get (dynamo/amzn-get amzn park-table id) "park")))
+   (db/query
+    db
+    ["SELECT location
+      FROM locations
+      WHERE id = ?"
+     id]
+    :row-fn :location
+    :result-set-fn first)))
 
-(defn store [amzn park]
-  (dynamo/amzn-set amzn park-table
-                   {:park-id (:park-id park)
-                    :park (json/gen park)}))
+(defn store [db location]
+  (db/with-db-transaction [db db]
+    (let [r (db/execute!
+             db
+             ["UPDATE locations
+             SET location = ?
+             WHERE id = ?"
+              (:park-id location)
+              (json/gen location)])]
+      (if (= [1] r)
+        true
+        (= [1]
+           (db/execute!
+            db
+            ["INSERT INTO locations (id, location)
+            SELECT ?, ?
+            WHERE NOT EXISTS (SELECT 1 FROM locations WHERE id = ?)"
+             (:park-id location) (json/gen location)
+             (:park-id location)]))))))
 
-(defn all [amzn]
+(defn all [db]
   (sort-by :name
-           (map #(json/parse (get % "park"))
-                (:items (dynamo/amzn-list amzn park-table)))))
+           (map json/parse
+                (db/query
+                 db
+                 ["SELECT location
+                   FROM locations"]
+                 :row-fn :location))))

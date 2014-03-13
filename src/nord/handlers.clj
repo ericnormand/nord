@@ -13,13 +13,12 @@
   :available-media-types ["text/html"]
   :available-charsets ["utf-8"]
   :handle-ok (fn [{:keys [request]}]
-               (view/homepage {:parks (parks/all (:amzn request))})))
-
+               (view/homepage {:parks (parks/all (:db request))})))
 
 (defn bool [x]
   (let [x (.trim x)]
-   (and (not= x "false")
-        (not= x ""))))
+    (and (not= x "false")
+         (not= x ""))))
 
 (defn string [x] x)
 (defn number [x]
@@ -43,15 +42,15 @@
             [k x]))))
 
 (liberator/defresource park
-  :method-allowed? #{:get :head :post}
+  :allowed-methods [:get :head :post]
   :exists? (fn [{:keys [request]}]
-             (let [park (parks/fetch (:amzn request)
+             (let [park (parks/fetch (:db request)
                                      (:park-id request))]
                [(not (nil? park))
                 {:park park}]))
   :post! (fn [{:keys [request]}]
-           (parks/store (:amzn request)
-                        (transform-types (attr/all (:amzn request))
+           (parks/store (:db request)
+                        (transform-types (attr/all (:db request))
                                          (:params request))))
   :post-redirect? true
   :see-other (fn [{:keys [request]}]
@@ -63,16 +62,16 @@
   :available-media-types ["text/html"]
   :available-charsets ["utf-8"]
   :handle-ok (fn [context]
-               (view/park (attr/all (:amzn (:request context)))
+               (view/park (attr/all (:db (:request context)))
                           (:park context))))
 
 (liberator/defresource new-park
-  :method-allowed? #{:get :head :post}
+  :allowed-methods [:get :head :post]
   :available-media-types ["text/html"]
   :available-charsets ["utf-8"]
   :post! (fn [{:keys [request]}]
-           (parks/store (:amzn request)
-                        (transform-types (attr/all (:amzn request))
+           (parks/store (:db request)
+                        (transform-types (attr/all (:db request))
                                          (:params request))))
   :post-redirect? true
   :see-other (fn [{:keys [request]}]
@@ -80,12 +79,12 @@
                 :status 303
                 :body ""})
   :handle-ok (fn [{:keys [request]}]
-               (view/new-park (attr/all (:amzn request))
+               (view/new-park (attr/all (:db request))
                               (:park-id request))))
 
 (liberator/defresource edit-park
   :exists? (fn [{:keys [request]}]
-             (let [amzn (:amzn request)
+             (let [amzn (:db request)
                    park-id (:park-id request)
                    park (parks/fetch amzn park-id)]
                [(not (nil? park))
@@ -95,7 +94,7 @@
   :available-media-types ["text/html"]
   :available-charsets ["utf-8"]
   :handle-ok (fn [context]
-               (let [amzn (:amzn (:request context))
+               (let [amzn (:db (:request context))
                      attributes (attr/all amzn)]
                  (view/edit-park attributes
                                  (:park context)))))
@@ -104,7 +103,7 @@
   :available-media-types ["text/html" "application/json"]
   :available-charsets ["utf-8"]
   :handle-ok (fn [context]
-               (let [amzn (:amzn (:request context))
+               (let [amzn (:db (:request context))
                      parks (parks/all amzn)]
                  (if (= "application/json" (:media-type (:representation context)))
                    (json/generate-string {:parks parks})
@@ -114,7 +113,7 @@
   :available-media-types ["application/json"]
   :available-charsets ["utf-8"]
   :handle-ok (fn [context]
-               (let [amzn (:amzn (:request context))
+               (let [amzn (:db (:request context))
                      parks (parks/all amzn)]
                  (json/generate-string {:parks parks}))))
 
@@ -135,15 +134,15 @@
       nil)))
 
 (liberator/defresource new-attribute
-  :method-allowed? #{:get :head :post}
+  :allowed-methods [:get :head :post]
   :available-media-types ["text/html"]
   :available-charsets ["utf-8"]
   :post! (fn [{:keys [request]}]
-           (let [amzn (:amzn request)
+           (let [amzn (:db request)
                  existing (attr/fetch amzn
                                       (:attribute-id (:params request)))]
              (when-not existing
-               (attr/store amzn 
+               (attr/store amzn
                            (loadchoices
                             {:attribute-id (:attribute-id (:params request))
                              :label (:label (:params request))
@@ -160,7 +159,7 @@
 
 (liberator/defresource edit-attribute
   :exists? (fn [{:keys [request]}]
-             (let [amzn (:amzn request)
+             (let [amzn (:db request)
                    attribute-id (:attribute-id request)
                    attribute (attr/fetch amzn attribute-id)]
                [(not (nil? attribute))
@@ -173,15 +172,15 @@
                (view/edit-attribute (:attribute context))))
 
 (liberator/defresource attribute
-  :method-allowed? #{:get :head :post :delete}
+  :allowed-methods [:get :head :post :delete]
   :exists? (fn [{:keys [request]}]
-             (let [amzn (:amzn request)
+             (let [amzn (:db request)
                    attribute-id (:attribute-id request)
                    attribute (attr/fetch amzn attribute-id)]
                [(not (nil? attribute))
                 {:attribute attribute}]))
   :post! (fn [{:keys [request]}]
-           (attr/store (:amzn request)
+           (attr/store (:db request)
                        (loadchoices
                         {:attribute-id (:attribute-id (:params request))
                          :label (:label (:params request))
@@ -194,7 +193,7 @@
                 :status 303
                 :body ""})
   :delete! (fn [{:keys [request]}]
-             (attr/delete (:amzn request) (:attribute-id request)))
+             (attr/delete (:db request) (:attribute-id request)))
   :handle-not-found (fn [{:keys [request]}]
                       (view/not-found (:uri request)))
   :available-media-types ["text/html"]
@@ -206,20 +205,20 @@
   :available-media-types ["text/html"]
   :available-charsets ["utf-8"]
   :handle-ok (fn [context]
-               (view/list-attributes (attr/all (:amzn (:request context))))))
+               (view/list-attributes (attr/all (:db (:request context))))))
 
 (def dp (-> nil
             (dispatch/dassoc "/attribute/new" new-attribute)
             (dispatch/dassoc "/attribute/:attribute-id/edit" edit-attribute)
             (dispatch/dassoc "/attribute/:attribute-id" attribute)
             (dispatch/dassoc "/attribute/list" list-attributes)
-            
+
             (dispatch/dassoc "/location/new" new-park)
             (dispatch/dassoc "/location/:park-id/edit" edit-park)
             (dispatch/dassoc "/location/:park-id" park)
             (dispatch/dassoc "/location/list" list-parks)
             (dispatch/dassoc "/location/list.json" list-parks-json)
-            
+
             (dispatch/dassoc "/" homepage)))
 
 (defn handler [req]
