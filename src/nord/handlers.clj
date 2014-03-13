@@ -46,17 +46,14 @@
   :exists? (fn [{:keys [request]}]
              (let [park (parks/fetch (:db request)
                                      (:park-id request))]
-               [(not (nil? park))
+               [(boolean park)
                 {:park park}]))
   :post! (fn [{:keys [request]}]
            (parks/store (:db request)
                         (transform-types (attr/all (:db request))
-                                         (:params request))))
+                                         (:params request)))
+           {:location (str "/location/" (:park-id (:params request)))})
   :post-redirect? true
-  :see-other (fn [{:keys [request]}]
-               {:headers {"Location" (str "/location/" (:park-id (:params request)))}
-                :status 303
-                :body ""})
   :handle-not-found (fn [{:keys [request]}]
                       (view/not-found (:uri request)))
   :available-media-types ["text/html"]
@@ -72,12 +69,9 @@
   :post! (fn [{:keys [request]}]
            (parks/store (:db request)
                         (transform-types (attr/all (:db request))
-                                         (:params request))))
+                                         (:params request)))
+           {:location (str "/location/" (:park-id (:params request)))})
   :post-redirect? true
-  :see-other (fn [{:keys [request]}]
-               {:headers {"Location" (str "/location/" (:park-id (:params request)))}
-                :status 303
-                :body ""})
   :handle-ok (fn [{:keys [request]}]
                (view/new-park (attr/all (:db request))
                               (:park-id request))))
@@ -87,7 +81,7 @@
              (let [amzn (:db request)
                    park-id (:park-id request)
                    park (parks/fetch amzn park-id)]
-               [(not (nil? park))
+               [(boolean park)
                 {:park park}]))
   :handle-not-found (fn [{:keys [request]}]
                       (view/not-found (:uri request)))
@@ -148,12 +142,10 @@
                              :label (:label (:params request))
                              :type (:type (:params request))
                              :order (parse-int (:order (:params request)))}
-                            (:params request))))))
+                            (:params request)))))
+           {:location (str "/attribute/" (:attribute-id (:params request)))})
   :post-redirect? true
-  :see-other (fn [{:keys [request]}]
-               {:headers {"Location" (str "/attribute/" (:attribute-id (:params request)))}
-                :status 303
-                :body ""})
+
   :handle-ok (fn [_]
                (view/new-attribute {})))
 
@@ -162,7 +154,7 @@
              (let [amzn (:db request)
                    attribute-id (:attribute-id request)
                    attribute (attr/fetch amzn attribute-id)]
-               [(not (nil? attribute))
+               [(boolean attribute)
                 {:attribute attribute}]))
   :handle-not-found (fn [{:keys [request]}]
                       (view/not-found (:uri request)))
@@ -177,7 +169,7 @@
              (let [amzn (:db request)
                    attribute-id (:attribute-id request)
                    attribute (attr/fetch amzn attribute-id)]
-               [(not (nil? attribute))
+               [(boolean attribute)
                 {:attribute attribute}]))
   :post! (fn [{:keys [request]}]
            (attr/store (:db request)
@@ -186,12 +178,10 @@
                          :label (:label (:params request))
                          :type (:type (:params request))
                          :order (parse-int (:order (:params request)))}
-                        (:params request))))
+                        (:params request)))
+           {:location (str "/attribute/" (:attribute-id (:params request)))})
   :post-redirect? true
-  :see-other (fn [{:keys [request]}]
-               {:headers {"Location" (str "/attribute/" (:attribute-id (:params request)))}
-                :status 303
-                :body ""})
+
   :delete! (fn [{:keys [request]}]
              (attr/delete (:db request) (:attribute-id request)))
   :handle-not-found (fn [{:keys [request]}]

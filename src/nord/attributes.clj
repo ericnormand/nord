@@ -24,8 +24,8 @@
              ["UPDATE attributes
                SET attribute = ?
                WHERE id = ?"
-              (:attribute-id attr)
-              (json/gen attr)])]
+              (json/gen attr)
+              (:attribute-id attr)])]
       (if (= [1] r)
         true
         (= [1]

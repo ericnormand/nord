@@ -22,8 +22,8 @@
              ["UPDATE locations
              SET location = ?
              WHERE id = ?"
-              (:park-id location)
-              (json/gen location)])]
+              (json/gen location)
+              (:park-id location)])]
       (if (= [1] r)
         true
         (= [1]
