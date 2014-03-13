@@ -1,0 +1,1 @@
+web: java $JVM_OPTS -cp target/nord.jar clojure.main -m nord.core $PORT
